@@ -1,5 +1,7 @@
 package com.alis.news.models
 
+import java.io.Serializable
+
 data class NewsArticles(
     var source: NewsSource? = null,
     var author: String? = null,
@@ -9,4 +11,4 @@ data class NewsArticles(
     var urlToImage: String? = null,
     var publishedAt: String? = null,
     var content: String? = null,
-)
+) : Serializable

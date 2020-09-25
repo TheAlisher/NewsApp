@@ -1,6 +1,7 @@
 package com.alis.news.data
 
 import com.alis.news.data.remote.NewsAPIClient
+import com.alis.news.models.NewsArticles
 import com.alis.news.models.NewsResponse
 
 class NewsRepository(newsAPIClient: NewsAPIClient) {
@@ -19,7 +20,6 @@ class NewsRepository(newsAPIClient: NewsAPIClient) {
                 override fun onFailure(exception: Exception) {
                     callback.onFailure(exception)
                 }
-
             }
         )
     }

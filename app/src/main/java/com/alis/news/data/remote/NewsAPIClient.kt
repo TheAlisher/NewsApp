@@ -2,6 +2,7 @@ package com.alis.news.data.remote
 
 import android.util.Log
 import com.alis.news.core.CoreCallback
+import com.alis.news.models.NewsArticles
 import com.alis.news.models.NewsResponse
 import retrofit2.Call
 import retrofit2.Retrofit
