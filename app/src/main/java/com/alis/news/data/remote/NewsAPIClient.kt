@@ -46,7 +46,7 @@ class NewsAPIClient {
     }
 
     interface NewsAPI {
-        @GET("v2/top-headlines?country=us&apiKey=bd9cafc7bcbd4767a804a034c271569b")
+        @GET("v2/top-headlines?country=us&pageSize=10&apiKey=bd9cafc7bcbd4767a804a034c271569b")
         fun getAction(): Call<NewsResponse>
     }
 }
