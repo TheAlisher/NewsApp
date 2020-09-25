@@ -12,12 +12,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alis.news.R
 import com.alis.news.adapters.NewsAdapter
+import com.alis.news.base.BaseFragment
 import com.alis.news.interfaces.OnItemClickListener
 import com.alis.news.models.NewsArticles
 import com.alis.news.presentation.details.DetailsFragment
 import com.alis.news.presentation.details.DetailsFragment.Companion.ARG_NEWS_DATA
 
-class MainFragment : Fragment() {
+class MainFragment : BaseFragment() {
 
     private lateinit var viewModel: MainViewModel
 
@@ -29,17 +30,20 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_main, container, false)
+        return getPersistentViews(inflater, container, R.layout.fragment_main)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initializationViewModel()
-        observeNews()
-        createRecycler(view)
-        requestInAPI()
-        initializationListeners()
+        if (hasInitializedRootView) {
+            hasInitializedRootView = true
+            initializationViewModel()
+            observeNews()
+            createRecycler(view)
+            requestInAPI()
+            initializationListeners()
+        }
     }
 
     private fun initializationViewModel() {
