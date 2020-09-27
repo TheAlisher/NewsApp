@@ -1,5 +1,7 @@
 package com.alis.news.presentation.main
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -37,7 +39,7 @@ class MainFragment : Fragment() {
         initializationViewModel()
         observeNews()
         createRecycler(view)
-        requestInAPI()
+        getNews()
         initializationListeners()
     }
 
@@ -70,14 +72,33 @@ class MainFragment : Fragment() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (!recyclerView.canScrollVertically(1)) {
-                    requestInAPI()
+                    requestToApi()
                 }
             }
         })
     }
 
-    private fun requestInAPI() {
-        viewModel.requestInAPI()
+    private fun getNews() {
+        if (isNetworkAvailable()) {
+            requestToApi()
+        } else{
+            requestToDatabase()
+        }
+    }
+
+    private fun isNetworkAvailable(): Boolean {
+        val connectivityManager =
+            requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
+        val activeNetworkInfo = connectivityManager!!.activeNetworkInfo
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected
+    }
+
+    private fun requestToApi() {
+        viewModel.requestToAPI()
+    }
+
+    private fun requestToDatabase() {
+        viewModel.requestToDatabase()
     }
 
     private fun initializationListeners() {

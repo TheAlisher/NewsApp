@@ -1,12 +1,15 @@
 package com.alis.news.data
 
+import androidx.lifecycle.LiveData
 import com.alis.news.data.remote.NewsAPIClient
+import com.alis.news.db.NewsDao
 import com.alis.news.models.NewsArticles
 import com.alis.news.models.NewsResponse
 
-class NewsRepository(newsAPIClient: NewsAPIClient) {
+class NewsRepository(newsAPIClient: NewsAPIClient, newsDao: NewsDao) : NewsDao {
 
     private var newsAPIClient: NewsAPIClient? = newsAPIClient
+    private var newsDao: NewsDao? = newsDao
 
     fun getAction(
         country: String?,
@@ -28,5 +31,20 @@ class NewsRepository(newsAPIClient: NewsAPIClient) {
                 }
             }
         )
+    }
+
+    override fun insert(newsArticles: List<NewsArticles>) {
+
+    }
+
+    override fun delete(newsArticles: NewsArticles) {
+    }
+
+    override fun getAll(): List<NewsArticles>? {
+        return null
+    }
+
+    override fun deleteAll() {
+
     }
 }
