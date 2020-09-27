@@ -1,10 +1,10 @@
 package com.alis.news.presentation.main
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -62,6 +62,18 @@ class MainFragment : Fragment() {
         recyclerNews.addItemDecoration(dividerItemDecoration)
         newsAdapter = NewsAdapter(list)
         recyclerNews.adapter = newsAdapter
+        addRecyclerListener()
+    }
+
+    private fun addRecyclerListener() {
+        recyclerNews.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (!recyclerView.canScrollVertically(1)) {
+                    requestInAPI()
+                }
+            }
+        })
     }
 
     private fun requestInAPI() {

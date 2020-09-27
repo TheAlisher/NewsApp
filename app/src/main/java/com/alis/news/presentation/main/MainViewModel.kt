@@ -13,9 +13,14 @@ class MainViewModel : ViewModel() {
     var news: MutableLiveData<List<NewsArticles>> = MutableLiveData()
 
     private var mNews: List<NewsArticles>? = null
+    private var page: Int = 0
 
     fun requestInAPI() {
+        incrementPage()
         App.newsRepository?.getAction(
+            "us",
+            10,
+            page,
             object : NewsAPIClient.NewsActionCallback {
 
                 override fun onSuccess(result: NewsResponse) {
@@ -29,5 +34,9 @@ class MainViewModel : ViewModel() {
                 }
             }
         )
+    }
+
+    private fun incrementPage() {
+        page += 1
     }
 }

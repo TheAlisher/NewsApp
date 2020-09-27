@@ -9,9 +9,15 @@ class NewsRepository(newsAPIClient: NewsAPIClient) {
     private var newsAPIClient: NewsAPIClient? = newsAPIClient
 
     fun getAction(
+        country: String?,
+        pageSize: Int?,
+        page: Int?,
         callback: NewsAPIClient.NewsActionCallback
     ) {
         newsAPIClient?.getAction(
+            country,
+            pageSize,
+            page,
             object : NewsAPIClient.NewsActionCallback {
                 override fun onSuccess(result: NewsResponse) {
                     callback.onSuccess(result)

@@ -8,6 +8,7 @@ import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 class NewsAPIClient {
 
@@ -19,9 +20,16 @@ class NewsAPIClient {
     private val client: NewsAPI = retrofit.create(NewsAPI::class.java)
 
     fun getAction(
+        country: String?,
+        pageSize: Int?,
+        page: Int?,
         callback: NewsActionCallback
     ) {
-        val call: Call<NewsResponse> = client.getAction()
+        val call: Call<NewsResponse> = client.getAction(
+            country,
+            pageSize,
+            page
+        )
 
         Log.d("call", call.request().url().toString())
 
@@ -46,7 +54,11 @@ class NewsAPIClient {
     }
 
     interface NewsAPI {
-        @GET("v2/top-headlines?country=us&pageSize=10&apiKey=bd9cafc7bcbd4767a804a034c271569b")
-        fun getAction(): Call<NewsResponse>
+        @GET("v2/top-headlines?apiKey=bd9cafc7bcbd4767a804a034c271569b")
+        fun getAction(
+            @Query("country") country: String?,
+            @Query("pageSize") pageSize: Int?,
+            @Query("page") page: Int?
+        ): Call<NewsResponse>
     }
 }
