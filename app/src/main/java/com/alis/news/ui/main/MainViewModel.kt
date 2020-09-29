@@ -11,6 +11,7 @@ import com.alis.news.models.NewsResponse
 class MainViewModel : ViewModel() {
 
     var news: MutableLiveData<List<NewsArticles>> = MutableLiveData()
+    var searchNews: MutableLiveData<List<NewsArticles>> = MutableLiveData()
 
     private var mNews: List<NewsArticles>? = null
     private var page: Int = 0
@@ -24,15 +25,15 @@ class MainViewModel : ViewModel() {
             object : NewsAPIClient.NewsActionCallback {
 
                 override fun onSuccess(result: NewsResponse) {
-                    Log.d("anime", result.articles.toString())
+                    Log.d("requestToApi", result.articles.toString())
                     mNews = result.articles
                     news.value = result.articles
-                    
+
                     insertInDatabase(result)
                 }
 
                 override fun onFailure(exception: Exception) {
-                    Log.d("anime", exception.toString())
+                    Log.d("requestToApi", exception.toString())
                 }
             }
         )
@@ -49,5 +50,22 @@ class MainViewModel : ViewModel() {
 
     fun requestToDatabase() {
         news.value = App.newsRepository?.getAll()
+    }
+
+    fun searchRequestToAPI(q: String?) {
+        App.newsRepository?.getActionWithSearch(
+            q,
+            object : NewsAPIClient.NewsActionCallback {
+
+                override fun onSuccess(result: NewsResponse) {
+                    Log.d("searchRequestToApi", result.articles.toString())
+                    searchNews.value = result.articles
+                }
+
+                override fun onFailure(exception: Exception) {
+                    Log.d("searchRequestToApi", exception.toString())
+                }
+            }
+        )
     }
 }

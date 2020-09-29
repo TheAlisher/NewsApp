@@ -2,7 +2,6 @@ package com.alis.news.data.remote
 
 import android.util.Log
 import com.alis.news.core.CoreCallback
-import com.alis.news.models.NewsArticles
 import com.alis.news.models.NewsResponse
 import retrofit2.Call
 import retrofit2.Retrofit
@@ -31,7 +30,28 @@ class NewsAPIClient {
             page
         )
 
-        Log.d("call", call.request().url().toString())
+        Log.d("getAction", call.request().url().toString())
+
+        call.enqueue(object : CoreCallback<NewsResponse>() {
+            override fun onSuccess(result: NewsResponse) {
+                callback.onSuccess(result)
+            }
+
+            override fun onFailure(exception: Exception) {
+                callback.onFailure(exception)
+            }
+        })
+    }
+
+    fun getActionWithSearch(
+        q: String?,
+        callback: NewsActionCallback
+    ) {
+        val call: Call<NewsResponse> = client.getActionWithSearch(
+            q
+        )
+
+        Log.d("getSearchAction", call.request().url().toString())
 
         call.enqueue(object : CoreCallback<NewsResponse>() {
             override fun onSuccess(result: NewsResponse) {
@@ -59,6 +79,11 @@ class NewsAPIClient {
             @Query("country") country: String?,
             @Query("pageSize") pageSize: Int?,
             @Query("page") page: Int?
+        ): Call<NewsResponse>
+
+        @GET("v2/everything?apiKey=bd9cafc7bcbd4767a804a034c271569b")
+        fun getActionWithSearch(
+            @Query("q") q: String?
         ): Call<NewsResponse>
     }
 }

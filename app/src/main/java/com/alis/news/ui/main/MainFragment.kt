@@ -3,9 +3,8 @@ package com.alis.news.ui.main
 import android.content.Context
 import android.net.ConnectivityManager
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -30,6 +29,7 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        setHasOptionsMenu(true)
         return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
@@ -37,7 +37,7 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initializationViewModel()
-        observeNews()
+        observe()
         createRecycler(view)
         getNews()
         initializationListeners()
@@ -47,10 +47,24 @@ class MainFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
     }
 
+    private fun observe() {
+        observeNews()
+        observeSearchNews()
+    }
+
     private fun observeNews() {
         viewModel.news.observe(viewLifecycleOwner,
             { articles ->
                 list.addAll(articles!!)
+                newsAdapter.notifyDataSetChanged()
+            })
+    }
+
+    private fun observeSearchNews() {
+        viewModel.searchNews.observe(viewLifecycleOwner,
+            { articles ->
+                list.clear()
+                list.addAll(articles)
                 newsAdapter.notifyDataSetChanged()
             })
     }
@@ -81,7 +95,7 @@ class MainFragment : Fragment() {
     private fun getNews() {
         if (isNetworkAvailable()) {
             requestToApi()
-        } else{
+        } else {
             requestToDatabase()
         }
     }
@@ -111,6 +125,31 @@ class MainFragment : Fragment() {
                     R.id.action_mainFragment_to_detailsFragment,
                     list[position]
                 )*/
+            }
+        })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.toolbar_menu, menu)
+        searchViewLogic(menu)
+
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    private fun searchViewLogic(menu: Menu) {
+        val itemSearch = menu.findItem(R.id.toolbar_search)
+        val searchView: androidx.appcompat.widget.SearchView = itemSearch.actionView
+                as androidx.appcompat.widget.SearchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+
+            override fun onQueryTextChange(p0: String?): Boolean {
+                return true
+            }
+
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+                viewModel.searchRequestToAPI(p0)
+                return true
             }
         })
     }

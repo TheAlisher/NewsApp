@@ -1,6 +1,5 @@
 package com.alis.news.data
 
-import androidx.lifecycle.LiveData
 import com.alis.news.data.remote.NewsAPIClient
 import com.alis.news.db.NewsDao
 import com.alis.news.models.NewsArticles
@@ -21,6 +20,24 @@ class NewsRepository(newsAPIClient: NewsAPIClient, newsDao: NewsDao) : NewsDao {
             country,
             pageSize,
             page,
+            object : NewsAPIClient.NewsActionCallback {
+                override fun onSuccess(result: NewsResponse) {
+                    callback.onSuccess(result)
+                }
+
+                override fun onFailure(exception: Exception) {
+                    callback.onFailure(exception)
+                }
+            }
+        )
+    }
+
+    fun getActionWithSearch(
+        q: String?,
+        callback: NewsAPIClient.NewsActionCallback
+    ) {
+        newsAPIClient?.getActionWithSearch(
+            q,
             object : NewsAPIClient.NewsActionCallback {
                 override fun onSuccess(result: NewsResponse) {
                     callback.onSuccess(result)
