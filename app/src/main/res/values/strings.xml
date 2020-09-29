@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">News</string>
 
+    <!--Menu-->
+    <string name="item_search">Поиск</string>
+
     <!--ContentDescription-->
     <string name="contentDescription_image_news">Image news</string>
 

@@ -1,12 +1,10 @@
-package com.alis.news.presentation.details
+package com.alis.news.ui.details
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.alis.news.R
 import com.alis.news.models.NewsArticles
 import com.bumptech.glide.Glide

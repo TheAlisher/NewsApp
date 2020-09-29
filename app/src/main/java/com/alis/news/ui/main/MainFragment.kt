@@ -1,4 +1,4 @@
-package com.alis.news.presentation.main
+package com.alis.news.ui.main
 
 import android.content.Context
 import android.net.ConnectivityManager
@@ -16,7 +16,7 @@ import com.alis.news.R
 import com.alis.news.adapters.NewsAdapter
 import com.alis.news.interfaces.OnItemClickListener
 import com.alis.news.models.NewsArticles
-import com.alis.news.presentation.details.DetailsFragment.Companion.ARG_NEWS_DATA
+import com.alis.news.ui.details.DetailsFragment.Companion.ARG_NEWS_DATA
 
 class MainFragment : Fragment() {
 

@@ -11,8 +11,8 @@ import java.io.Serializable
 data class NewsArticles(
     @PrimaryKey(autoGenerate = true)
     var id: Int?,
-    @TypeConverters(SourceConverter::class)
-    var source: NewsSource? = null,
+    /*@TypeConverters(SourceConverter::class)
+    var source: NewsSource? = null,*/
     var author: String? = null,
     var title: String? = null,
     var description: String? = null,

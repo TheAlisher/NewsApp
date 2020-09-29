@@ -1,7 +1,6 @@
-package com.alis.news.presentation.main
+package com.alis.news.ui.main
 
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.alis.news.App
