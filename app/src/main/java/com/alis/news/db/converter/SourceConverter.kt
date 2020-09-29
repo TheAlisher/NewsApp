@@ -8,18 +8,18 @@ import com.google.gson.reflect.TypeToken
 class SourceConverter {
 
     @TypeConverter
-    fun toRaw(questions: List<NewsSource?>?): String? {
+    fun toRaw(questions: NewsSource?): String? {
         if (questions == null) return null
         val gson = Gson()
-        val type = object : TypeToken<List<NewsSource?>?>() {}.type
+        val type = object : TypeToken<NewsSource?>() {}.type
         return gson.toJson(questions, type)
     }
 
     @TypeConverter
-    fun fromRaw(raw: String?): List<NewsSource?>? {
+    fun fromRaw(raw: String?): NewsSource? {
         if (raw == null) return null
         val gson = Gson()
-        val type = object : TypeToken<List<NewsSource?>?>() {}.type
-        return gson.fromJson<List<NewsSource?>>(raw, type)
+        val type = object : TypeToken<NewsSource?>() {}.type
+        return gson.fromJson<NewsSource>(raw, type)
     }
 }

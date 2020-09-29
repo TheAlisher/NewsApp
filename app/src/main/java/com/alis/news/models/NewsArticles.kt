@@ -8,11 +8,11 @@ import com.alis.news.db.converter.SourceConverter
 import java.io.Serializable
 
 @Entity
+@TypeConverters(SourceConverter::class)
 data class NewsArticles(
     @PrimaryKey(autoGenerate = true)
     var id: Int?,
-    /*@TypeConverters(SourceConverter::class)
-    var source: NewsSource? = null,*/
+    var source: NewsSource? = null,
     var author: String? = null,
     var title: String? = null,
     var description: String? = null,
