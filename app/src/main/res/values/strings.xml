@@ -3,6 +3,8 @@
 
     <!--Menu-->
     <string name="item_search">Поиск</string>
+    <string name="item_top_headlines">Главные заголовки</string>
+    <string name="item_everything">Все</string>
 
     <!--ContentDescription-->
     <string name="contentDescription_image_news">Image news</string>

@@ -18,19 +18,44 @@ class NewsAPIClient {
 
     private val client: NewsAPI = retrofit.create(NewsAPI::class.java)
 
-    fun getAction(
+    fun getTopHeadlines(
         country: String?,
         pageSize: Int?,
         page: Int?,
         callback: NewsActionCallback
     ) {
-        val call: Call<NewsResponse> = client.getAction(
+        val call: Call<NewsResponse> = client.getTopHeadlines(
             country,
             pageSize,
             page
         )
 
-        Log.d("getAction", call.request().url().toString())
+        Log.d("getTopHeadlines", call.request().url().toString())
+
+        call.enqueue(object : CoreCallback<NewsResponse>() {
+            override fun onSuccess(result: NewsResponse) {
+                callback.onSuccess(result)
+            }
+
+            override fun onFailure(exception: Exception) {
+                callback.onFailure(exception)
+            }
+        })
+    }
+
+    fun getEverything(
+        country: String?,
+        pageSize: Int?,
+        page: Int?,
+        callback: NewsActionCallback
+    ) {
+        val call: Call<NewsResponse> = client.getTopHeadlines(
+            country,
+            pageSize,
+            page
+        )
+
+        Log.d("getEverything", call.request().url().toString())
 
         call.enqueue(object : CoreCallback<NewsResponse>() {
             override fun onSuccess(result: NewsResponse) {
@@ -75,11 +100,18 @@ class NewsAPIClient {
 
     interface NewsAPI {
         @GET("v2/top-headlines?apiKey=bd9cafc7bcbd4767a804a034c271569b")
-        fun getAction(
+        fun getTopHeadlines(
             @Query("country") country: String?,
             @Query("pageSize") pageSize: Int?,
             @Query("page") page: Int?
         ): Call<NewsResponse>
+
+        @GET("v2/everything?apiKey=bd9cafc7bcbd4767a804a034c271569b")
+        fun getEverything(
+            @Query ("country") country: String?,
+            @Query("pageSize") pageSize: Int?,
+            @Query("page") page: Int?
+        )
 
         @GET("v2/everything?apiKey=bd9cafc7bcbd4767a804a034c271569b")
         fun getActionWithSearch(

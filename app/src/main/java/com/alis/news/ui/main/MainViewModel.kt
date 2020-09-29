@@ -12,31 +12,54 @@ class MainViewModel : ViewModel() {
 
     var news: MutableLiveData<List<NewsArticles>> = MutableLiveData()
     var searchNews: MutableLiveData<List<NewsArticles>> = MutableLiveData()
+    var isEndpoint: MutableLiveData<Boolean> = MutableLiveData()
 
     private var mNews: List<NewsArticles>? = null
     private var page: Int = 0
 
     fun requestToAPI() {
         incrementPage()
-        App.newsRepository?.getAction(
-            "us",
-            10,
-            page,
-            object : NewsAPIClient.NewsActionCallback {
+        if (App.preferences?.endpoint()!!) {
+            App.newsRepository?.getTopHeadlines(
+                "us",
+                10,
+                page,
+                object : NewsAPIClient.NewsActionCallback {
 
-                override fun onSuccess(result: NewsResponse) {
-                    Log.d("requestToApi", result.articles.toString())
-                    mNews = result.articles
-                    news.value = result.articles
+                    override fun onSuccess(result: NewsResponse) {
+                        Log.d("topHeadlinesRequest", result.articles.toString())
+                        mNews = result.articles
+                        news.value = result.articles
 
-                    insertInDatabase(result)
+                        insertInDatabase(result)
+                    }
+
+                    override fun onFailure(exception: Exception) {
+                        Log.d("topHeadlinesRequest", exception.toString())
+                    }
                 }
+            )
+        } else {
+            App.newsRepository?.getEverything(
+                "us",
+                10,
+                page,
+                object : NewsAPIClient.NewsActionCallback {
 
-                override fun onFailure(exception: Exception) {
-                    Log.d("requestToApi", exception.toString())
+                    override fun onSuccess(result: NewsResponse) {
+                        Log.d("everythingRequest", result.articles.toString())
+                        mNews = result.articles
+                        news.value = result.articles
+
+                        insertInDatabase(result)
+                    }
+
+                    override fun onFailure(exception: Exception) {
+                        Log.d("everythingRequest", exception.toString())
+                    }
                 }
-            }
-        )
+            )
+        }
     }
 
     private fun incrementPage() {
@@ -67,5 +90,15 @@ class MainViewModel : ViewModel() {
                 }
             }
         )
+    }
+
+    fun clickTopHeadlines() {
+        isEndpoint.value = true
+        App.preferences?.setEndpoint(true)
+    }
+
+    fun clickEverything() {
+        isEndpoint.value = false
+        App.preferences?.setEndpoint(false)
     }
 }

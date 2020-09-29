@@ -10,13 +10,35 @@ class NewsRepository(newsAPIClient: NewsAPIClient, newsDao: NewsDao) : NewsDao {
     private var newsAPIClient: NewsAPIClient? = newsAPIClient
     private var newsDao: NewsDao? = newsDao
 
-    fun getAction(
+    fun getTopHeadlines(
         country: String?,
         pageSize: Int?,
         page: Int?,
         callback: NewsAPIClient.NewsActionCallback
     ) {
-        newsAPIClient?.getAction(
+        newsAPIClient?.getTopHeadlines(
+            country,
+            pageSize,
+            page,
+            object : NewsAPIClient.NewsActionCallback {
+                override fun onSuccess(result: NewsResponse) {
+                    callback.onSuccess(result)
+                }
+
+                override fun onFailure(exception: Exception) {
+                    callback.onFailure(exception)
+                }
+            }
+        )
+    }
+
+    fun getEverything(
+        country: String?,
+        pageSize: Int?,
+        page: Int?,
+        callback: NewsAPIClient.NewsActionCallback
+    ) {
+        newsAPIClient?.getEverything(
             country,
             pageSize,
             page,

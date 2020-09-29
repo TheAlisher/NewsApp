@@ -3,11 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/toolbar_search"
+        android:id="@+id/search_menu"
         android:icon="@drawable/icon_search"
         android:title="@string/item_search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="always" />
+
+    <item
+        android:id="@+id/top_headlines_menu"
+        android:title="@string/item_top_headlines"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/everything_menu"
+        android:title="@string/item_everything"
+        app:showAsAction="ifRoom" />
 
 
 </menu>

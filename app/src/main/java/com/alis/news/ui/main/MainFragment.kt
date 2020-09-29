@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alis.news.R
 import com.alis.news.adapters.NewsAdapter
+import com.alis.news.extension.showToastLONG
 import com.alis.news.interfaces.OnItemClickListener
 import com.alis.news.models.NewsArticles
 import com.alis.news.ui.details.DetailsFragment.Companion.ARG_NEWS_DATA
@@ -50,6 +51,7 @@ class MainFragment : Fragment() {
     private fun observe() {
         observeNews()
         observeSearchNews()
+        observeIsEndpoint()
     }
 
     private fun observeNews() {
@@ -67,6 +69,15 @@ class MainFragment : Fragment() {
                 list.addAll(articles)
                 newsAdapter.notifyDataSetChanged()
             })
+    }
+
+    private fun observeIsEndpoint() {
+        viewModel.isEndpoint.observe(viewLifecycleOwner,
+            {
+                list.clear()
+                requestToApi()
+            }
+        )
     }
 
     private fun createRecycler(view: View) {
@@ -131,13 +142,13 @@ class MainFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.toolbar_menu, menu)
-        searchViewLogic(menu)
-
+        searchLogic(menu)
+        switchLogic(menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    private fun searchViewLogic(menu: Menu) {
-        val itemSearch = menu.findItem(R.id.toolbar_search)
+    private fun searchLogic(menu: Menu) {
+        val itemSearch = menu.findItem(R.id.search_menu)
         val searchView: androidx.appcompat.widget.SearchView = itemSearch.actionView
                 as androidx.appcompat.widget.SearchView
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
@@ -152,5 +163,20 @@ class MainFragment : Fragment() {
                 return true
             }
         })
+    }
+
+    private fun switchLogic(menu: Menu) {
+        val topHeadlines = menu.findItem(R.id.top_headlines_menu)
+        topHeadlines.setOnMenuItemClickListener {
+            showToastLONG(requireContext(), "В ленте будут отображаться \"Главные заголовки\"")
+            viewModel.clickTopHeadlines()
+            true
+        }
+        val everything = menu.findItem(R.id.everything_menu)
+        everything.setOnMenuItemClickListener {
+            showToastLONG(requireContext(), "В ленте будут отображаться \"Все\"")
+            viewModel.clickEverything()
+            true
+        }
     }
 }
