@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.alis.news.R
-import com.alis.news.interfaces.OnItemClickListener
 import com.alis.news.models.NewsArticles
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.list_news_item.view.*
@@ -53,5 +52,9 @@ class NewsAdapter(
                 listener.onNewsItemClick(adapterPosition)
             }
         }
+    }
+
+    interface OnItemClickListener {
+        fun onNewsItemClick(position: Int)
     }
 }

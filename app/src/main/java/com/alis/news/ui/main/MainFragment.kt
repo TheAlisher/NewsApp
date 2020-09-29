@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alis.news.R
 import com.alis.news.adapters.NewsAdapter
 import com.alis.news.extension.showToastLONG
-import com.alis.news.interfaces.OnItemClickListener
 import com.alis.news.models.NewsArticles
 import com.alis.news.ui.details.DetailsFragment.Companion.ARG_NEWS_DATA
 
@@ -127,7 +126,7 @@ class MainFragment : Fragment() {
     }
 
     private fun initializationListeners() {
-        newsAdapter.setOnItemClickListener(object : OnItemClickListener {
+        newsAdapter.setOnItemClickListener(object : NewsAdapter.OnItemClickListener {
             override fun onNewsItemClick(position: Int) {
                 val bundle = Bundle()
                 bundle.putSerializable(ARG_NEWS_DATA, list[position])
