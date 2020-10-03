@@ -3,6 +3,7 @@ package com.alis.news.ui.main
 import android.content.Context
 import android.net.ConnectivityManager
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
@@ -56,7 +57,11 @@ class MainFragment : Fragment() {
     private fun observeNews() {
         viewModel.news.observe(viewLifecycleOwner,
             { articles ->
-                list.addAll(articles!!)
+                if (articles != null) {
+                    list.addAll(articles)
+                }else{
+                    list.clear()
+                }
                 newsAdapter.notifyDataSetChanged()
             })
     }
@@ -143,6 +148,7 @@ class MainFragment : Fragment() {
         inflater.inflate(R.menu.toolbar_menu, menu)
         searchLogic(menu)
         switchLogic(menu)
+        clearSavedLogic(menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -175,6 +181,14 @@ class MainFragment : Fragment() {
         everything.setOnMenuItemClickListener {
             showToastLONG(requireContext(), "В ленте будут отображаться \"Все\"")
             viewModel.clickEverything()
+            true
+        }
+    }
+
+    private fun clearSavedLogic(menu: Menu) {
+        val clearSaved = menu.findItem(R.id.clear_saved)
+        clearSaved.setOnMenuItemClickListener {
+            viewModel.clickClear()
             true
         }
     }

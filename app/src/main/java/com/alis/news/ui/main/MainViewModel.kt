@@ -30,8 +30,6 @@ class MainViewModel : ViewModel() {
                         Log.d("topHeadlinesRequest", result.articles.toString())
                         mNews = result.articles
                         news.value = result.articles
-
-                        insertInDatabase(result)
                     }
 
                     override fun onFailure(exception: Exception) {
@@ -50,8 +48,6 @@ class MainViewModel : ViewModel() {
                         Log.d("everythingRequest", result.articles.toString())
                         mNews = result.articles
                         news.value = result.articles
-
-                        insertInDatabase(result)
                     }
 
                     override fun onFailure(exception: Exception) {
@@ -66,13 +62,8 @@ class MainViewModel : ViewModel() {
         page += 1
     }
 
-    private fun insertInDatabase(result: NewsResponse) {
-        App.newsRepository?.deleteAll()
-        App.newsRepository?.insert(result.articles)
-    }
-
     fun requestToDatabase() {
-        news.value = App.newsRepository?.getAll()
+        news.value = App.newsDatabase!!.newsDao().getAll()
     }
 
     fun searchRequestToAPI(q: String?) {
@@ -83,6 +74,7 @@ class MainViewModel : ViewModel() {
                 override fun onSuccess(result: NewsResponse) {
                     Log.d("searchRequestToApi", result.articles.toString())
                     searchNews.value = result.articles
+                    insertInDatabase(result)
                 }
 
                 override fun onFailure(exception: Exception) {
@@ -90,6 +82,10 @@ class MainViewModel : ViewModel() {
                 }
             }
         )
+    }
+
+    private fun insertInDatabase(result: NewsResponse) {
+        App.newsDatabase!!.newsDao().insert(result.articles)
     }
 
     fun clickTopHeadlines() {
@@ -100,5 +96,10 @@ class MainViewModel : ViewModel() {
     fun clickEverything() {
         isEndpoint.value = false
         App.preferences?.setEndpoint(false)
+    }
+
+    fun clickClear() {
+        App.newsDatabase!!.newsDao().deleteAll()
+        news.value = null
     }
 }
