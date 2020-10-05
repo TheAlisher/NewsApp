@@ -1,9 +1,6 @@
 package com.alis.news.ui.main
 
-import android.content.Context
-import android.net.ConnectivityManager
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
@@ -14,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alis.news.R
 import com.alis.news.adapters.NewsAdapter
+import com.alis.news.extension.isNetworkAvailable
 import com.alis.news.extension.showToastLONG
 import com.alis.news.models.NewsArticles
 import com.alis.news.ui.details.DetailsFragment.Companion.ARG_NEWS_DATA
@@ -108,18 +106,11 @@ class MainFragment : Fragment() {
     }
 
     private fun getNews() {
-        if (isNetworkAvailable()) {
+        if (isNetworkAvailable(requireActivity())) {
             requestToApi()
         } else {
             requestToDatabase()
         }
-    }
-
-    private fun isNetworkAvailable(): Boolean {
-        val connectivityManager =
-            requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
-        val activeNetworkInfo = connectivityManager!!.activeNetworkInfo
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected
     }
 
     private fun requestToApi() {
