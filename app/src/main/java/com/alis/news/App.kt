@@ -10,9 +10,9 @@ import com.alis.news.db.NewsDatabase
 class App : Application() {
 
     companion object {
-        var newsRepository: NewsRepository? = null
-        var newsDatabase: NewsDatabase? = null
-        var preferences: AppPreferences? = null
+        lateinit var newsRepository: NewsRepository
+        lateinit var newsDatabase: NewsDatabase
+        lateinit var preferences: AppPreferences
     }
 
     override fun onCreate() {
@@ -27,7 +27,7 @@ class App : Application() {
             .fallbackToDestructiveMigration()
             .allowMainThreadQueries()
             .build()
-        newsRepository = NewsRepository(newsAPIClient, newsDatabase!!.newsDao())
+        newsRepository = NewsRepository(newsAPIClient, newsDatabase.newsDao())
         preferences = AppPreferences(this)
     }
 }

@@ -4,15 +4,12 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.alis.news.App
 
-class AppPreferences() {
+private const val PREF_ENDPOINTS = "endpoints"
 
-    private val PREF_ENDPOINTS = "endpoints"
+class AppPreferences(context: Context) {
 
-    private lateinit var preferences: SharedPreferences
-
-    constructor(context: Context) : this() {
-        preferences = context.getSharedPreferences("lotcion_preferences", Context.MODE_PRIVATE)
-    }
+    private var preferences: SharedPreferences =
+        context.getSharedPreferences("lotcion_preferences", Context.MODE_PRIVATE)
 
     fun endpoint(): Boolean? {
         return preferences.getBoolean(PREF_ENDPOINTS, true)
