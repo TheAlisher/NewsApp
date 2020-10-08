@@ -77,6 +77,7 @@ class MainFragment : Fragment() {
         viewModel.isEndpoint.observe(viewLifecycleOwner,
             {
                 list.clear()
+                newsAdapter.notifyDataSetChanged()
                 requestToApi()
             }
         )

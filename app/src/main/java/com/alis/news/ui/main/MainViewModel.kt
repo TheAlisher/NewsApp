@@ -89,11 +89,13 @@ class MainViewModel : ViewModel() {
     }
 
     fun clickTopHeadlines() {
+        page = 0
         isEndpoint.value = true
         App.preferences?.setEndpoint(true)
     }
 
     fun clickEverything() {
+        page = 0
         isEndpoint.value = false
         App.preferences?.setEndpoint(false)
     }
