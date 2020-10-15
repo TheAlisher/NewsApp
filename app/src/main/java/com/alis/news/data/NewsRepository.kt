@@ -5,10 +5,9 @@ import com.alis.news.db.NewsDao
 import com.alis.news.models.NewsArticles
 import com.alis.news.models.NewsResponse
 
-class NewsRepository(newsAPIClient: NewsAPIClient, newsDao: NewsDao) : NewsDao {
+class NewsRepository(newsAPIClient: NewsAPIClient) : NewsDao {
 
     private var newsAPIClient: NewsAPIClient? = newsAPIClient
-    private var newsDao: NewsDao? = newsDao
 
     fun getTopHeadlines(
         country: String?,
