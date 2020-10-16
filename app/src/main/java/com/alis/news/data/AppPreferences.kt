@@ -7,5 +7,5 @@ import com.alis.news.App
 class AppPreferences(context: Context) {
 
     private var preferences: SharedPreferences =
-        context.getSharedPreferences("lotcion_preferences", Context.MODE_PRIVATE)
+        context.getSharedPreferences("news_preferences", Context.MODE_PRIVATE)
 }
