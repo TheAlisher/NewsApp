@@ -1,4 +1,4 @@
-package com.alis.news.data.network
+package com.alis.news.data.remote
 
 import android.util.Log
 
