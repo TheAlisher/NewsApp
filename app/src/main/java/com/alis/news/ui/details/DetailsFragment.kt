@@ -11,6 +11,7 @@ import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.alis.news.R
+import com.alis.news.extension.loadImage
 import com.alis.news.models.NewsArticles
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_details.*
@@ -34,5 +35,13 @@ class DetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        setNewsData()
+    }
+
+    private fun setNewsData() {
+        image_details_news.loadImage(item?.urlToImage)
+        text_details_title.text = item?.title
+        text_details_description.text = item?.description
     }
 }
