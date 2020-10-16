@@ -1,4 +1,4 @@
-package com.alis.news.db.converter
+package com.alis.news.data.local.db.converter
 
 import androidx.room.TypeConverter
 import com.alis.news.models.NewsSource

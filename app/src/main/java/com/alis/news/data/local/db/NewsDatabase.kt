@@ -1,9 +1,7 @@
-package com.alis.news.db
+package com.alis.news.data.local.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import androidx.room.TypeConverters
-import com.alis.news.db.converter.SourceConverter
 import com.alis.news.models.NewsArticles
 
 @Database(entities = [NewsArticles::class], version = 1)

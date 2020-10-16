@@ -16,9 +16,9 @@ class TopHeadlinesViewModel(private val newsRepository: NewsRepository) : ViewMo
     fun fetchTopHeadlinesFromAPI() {
         page += 1
         news = newsRepository.fetchTopHeadlines(
-            "us",
-            10,
-            page
+            country = "us",
+            pageSize = 10,
+            page = page
         ) as MutableLiveData<Resource<NewsResponse>>
     }
 
@@ -27,8 +27,8 @@ class TopHeadlinesViewModel(private val newsRepository: NewsRepository) : ViewMo
     }
 
     fun fetchTopHeadlinesQuery(q: String) {
-        newsQuery = newsRepository.fetchTopHeadlinesQuery(
-            q
+        newsQuery = newsRepository.fetchEverything(
+            q = q
         ) as MutableLiveData<Resource<NewsResponse>>
     }
 

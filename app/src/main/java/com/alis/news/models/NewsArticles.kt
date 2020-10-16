@@ -2,9 +2,8 @@ package com.alis.news.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.TypeConverter
 import androidx.room.TypeConverters
-import com.alis.news.db.converter.SourceConverter
+import com.alis.news.data.local.db.converter.SourceConverter
 import java.io.Serializable
 
 @Entity

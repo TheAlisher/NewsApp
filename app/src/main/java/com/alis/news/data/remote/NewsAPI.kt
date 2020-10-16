@@ -9,24 +9,16 @@ interface NewsAPI {
     @GET("v2/top-headlines?apiKey=bd9cafc7bcbd4767a804a034c271569b")
     suspend fun fetchTopHeadlines(
         @Query("country") country: String?,
+        @Query("q") q: String?,
         @Query("pageSize") pageSize: Int?,
         @Query("page") page: Int?
     ): NewsResponse
 
-    @GET("v2/everything?apiKey=bd9cafc7bcbd4767a804a034c271569b")
+    @GET("v2/everything?apiKey=bd9cafc7bcbd4767a804a034c271569b&q=")
     suspend fun fetchEverything(
-        @Query("country") country: String?,
+        @Query("q") q: String?,
+        @Query("domains") domains: String?,
         @Query("pageSize") pageSize: Int?,
-        @Query("page") page: Int?
-    ) : NewsResponse
-
-    @GET("v2/top-headlines?apiKey=bd9cafc7bcbd4767a804a034c271569b")
-    suspend fun fetchTopHeadlinesQuery(
-        @Query("q") q: String?
-    ): NewsResponse
-
-    @GET("v2/everything?apiKey=bd9cafc7bcbd4767a804a034c271569b")
-    suspend fun fetchEverythingQuery(
-        @Query("q") q: String?
+        @Query("page") page: Int?,
     ): NewsResponse
 }

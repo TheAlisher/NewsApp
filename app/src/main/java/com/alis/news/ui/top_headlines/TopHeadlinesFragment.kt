@@ -1,6 +1,7 @@
 package com.alis.news.ui.top_headlines
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
@@ -97,6 +98,7 @@ class TopHeadlinesFragment : Fragment() {
     private fun fetchTopHeadlines() {
         if (isNetworkAvailable(requireActivity())) {
             viewModel.fetchTopHeadlinesFromAPI()
+            //viewModel.fetchTopHeadlinesQuery("bitcoin")
         } else {
             viewModel.fetchTopHeadlinesFromDatabase()
         }
