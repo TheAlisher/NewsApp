@@ -3,15 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/navigation_top_headlines">
 
     <fragment
-        android:id="@+id/mainFragment"
-        android:name="com.alis.news.ui.main.MainFragment"
+        android:id="@+id/navigation_top_headlines"
+        android:name="com.alis.news.ui.top_headlines.TopHeadlinesFragment"
         android:label="News"
         tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_mainFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_close_exit" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_everything"
+        android:name="com.alis.news.ui.everything.EverythingFragment"
+        android:label="fragment_everything"
+        tools:layout="@layout/fragment_everything">
+        <action
+            android:id="@+id/action_navigation_everything_to_detailsFragment"
             app:destination="@id/detailsFragment"
             app:enterAnim="@anim/fragment_open_enter"
             app:exitAnim="@anim/fragment_close_exit" />
