@@ -23,7 +23,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         initializeViews()
-        setUpListeners()
     }
 
     private fun initializeViews() {
@@ -42,9 +41,7 @@ class MainActivity : AppCompatActivity() {
         )
         toolbar.setupWithNavController(navController, appBarConfiguration)
         bottomNav.setupWithNavController(navController)
-    }
 
-    private fun setUpListeners() {
         addNavControllerDestinationChangedListener()
     }
 
