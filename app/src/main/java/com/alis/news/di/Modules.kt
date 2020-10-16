@@ -17,8 +17,7 @@ var newsModule = module {
     single { DatabaseClient().provideDatabase(androidApplication()) }
     single { DatabaseClient().provideNews(get()) }
 
-    factory { NewsRepository(get()) }
-
+    factory { NewsRepository(get(), get()) }
 
     viewModel { TopHeadlinesViewModel(get()) }
     viewModel { EverythingViewModel(get()) }
