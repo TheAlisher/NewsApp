@@ -22,7 +22,7 @@ class EverythingViewModel(private val newsRepository: NewsRepository) : ViewMode
         ) as MutableLiveData<Resource<NewsResponse>>
     }
 
-    fun fetchEverythingFromDatabase() {
+    fun getAllFromDatabase() {
         //TODO: fetch news from db
     }
 

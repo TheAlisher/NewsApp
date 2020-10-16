@@ -1,6 +1,7 @@
 package com.alis.news.ui.top_headlines
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
@@ -92,10 +93,11 @@ class TopHeadlinesFragment : Fragment() {
     }
 
     private fun fetchTopHeadlines() {
-        if (isNetworkAvailable(requireActivity())) {
+        if (isOnline(requireActivity())) {
             viewModel.fetchTopHeadlinesFromAPI()
         } else {
-            viewModel.fetchTopHeadlinesFromDatabase()
+            viewModel.getAllFromDatabase()
+            showToastShort(requireContext(), R.string.toast_check_internet_connection)
         }
     }
 

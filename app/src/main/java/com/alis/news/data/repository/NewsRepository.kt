@@ -41,6 +41,10 @@ class NewsRepository(private val newsAPI: NewsAPI, private val newsDao: NewsDao)
         newsDao.insertAll(newsArticles)
     }
 
+    fun deleteAll() {
+        newsDao.deleteAll()
+    }
+
     fun getAll() {
         newsDao.getAll()
     }

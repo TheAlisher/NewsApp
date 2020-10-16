@@ -92,10 +92,11 @@ class EverythingFragment : Fragment() {
     }
 
     private fun fetchEverything() {
-        if (isNetworkAvailable(requireActivity())) {
+        if (isOnline(requireActivity())) {
             viewModel.fetchEverythingFromAPI()
         } else {
-            viewModel.fetchEverythingFromDatabase()
+            viewModel.getAllFromDatabase()
+            showToastShort(requireContext(), R.string.toast_check_internet_connection)
         }
     }
 

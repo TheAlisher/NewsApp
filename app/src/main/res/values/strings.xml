@@ -13,6 +13,7 @@
     <!--Toast-->
     <string name="toast_error">Ошибка:</string>
     <string name="toast_cache_cleared">Кэш очищен</string>
+    <string name="toast_check_internet_connection">Проверьте интернет-соединение</string>
 
 
 </resources>

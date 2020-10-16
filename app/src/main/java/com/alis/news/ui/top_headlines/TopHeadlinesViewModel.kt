@@ -22,7 +22,7 @@ class TopHeadlinesViewModel(private val newsRepository: NewsRepository) : ViewMo
         ) as MutableLiveData<Resource<NewsResponse>>
     }
 
-    fun fetchTopHeadlinesFromDatabase() {
+    fun getAllFromDatabase() {
         //TODO: fetch news from db
     }
 
