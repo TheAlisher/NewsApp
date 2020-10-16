@@ -10,14 +10,17 @@ import com.alis.news.models.NewsArticles
 interface NewsDao {
 
     @Insert
-    fun insert(newsArticles: List<NewsArticles>)
+    fun insert(newsArticles: NewsArticles)
+
+    @Insert
+    fun insertAll(newsArticles: List<NewsArticles>)
 
     @Delete
     fun delete(newsArticles: NewsArticles)
 
-    @Query("SELECT * FROM newsArticles")
-    fun getAll(): List<NewsArticles>?
-
     @Query("DELETE FROM newsArticles")
     fun deleteAll()
+
+    @Query("SELECT * FROM newsArticles")
+    fun getAll(): List<NewsArticles>?
 }

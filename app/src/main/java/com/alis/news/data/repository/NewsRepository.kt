@@ -1,11 +1,13 @@
 package com.alis.news.data.repository
 
 import androidx.lifecycle.liveData
+import com.alis.news.data.local.db.NewsDao
 import com.alis.news.data.remote.NewsAPI
 import com.alis.news.data.remote.Resource
+import com.alis.news.models.NewsArticles
 import kotlinx.coroutines.Dispatchers
 
-class NewsRepository(private val newsAPI: NewsAPI) {
+class NewsRepository(private val newsAPI: NewsAPI, private val newsDao: NewsDao) {
 
     fun fetchTopHeadlines(
         country: String? = null,
@@ -33,5 +35,13 @@ class NewsRepository(private val newsAPI: NewsAPI) {
         } catch (E: Exception) {
             emit(Resource.error(data = null, message = E.message ?: "Error Occured!"))
         }
+    }
+
+    fun insertAll(newsArticles: List<NewsArticles>) {
+        newsDao.insertAll(newsArticles)
+    }
+
+    fun getAll() {
+        newsDao.getAll()
     }
 }
