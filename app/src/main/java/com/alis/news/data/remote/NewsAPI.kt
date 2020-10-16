@@ -14,7 +14,7 @@ interface NewsAPI {
         @Query("page") page: Int?
     ): NewsResponse
 
-    @GET("v2/everything?apiKey=bd9cafc7bcbd4767a804a034c271569b&q=")
+    @GET("v2/everything?apiKey=bd9cafc7bcbd4767a804a034c271569b")
     suspend fun fetchEverything(
         @Query("q") q: String?,
         @Query("domains") domains: String?,
