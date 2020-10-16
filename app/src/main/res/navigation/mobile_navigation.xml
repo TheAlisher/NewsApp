@@ -9,9 +9,10 @@
         android:id="@+id/navigation_top_headlines"
         android:name="com.alis.news.ui.top_headlines.TopHeadlinesFragment"
         android:label="News"
-        tools:layout="@layout/fragment_main">
+        tools:layout="@layout/fragment_top_headlines">
+
         <action
-            android:id="@+id/action_mainFragment_to_detailsFragment"
+            android:id="@+id/action_navigation_top_headlines_to_detailsFragment"
             app:destination="@id/detailsFragment"
             app:enterAnim="@anim/fragment_open_enter"
             app:exitAnim="@anim/fragment_close_exit" />
@@ -20,7 +21,7 @@
     <fragment
         android:id="@+id/navigation_everything"
         android:name="com.alis.news.ui.everything.EverythingFragment"
-        android:label="fragment_everything"
+        android:label="News"
         tools:layout="@layout/fragment_everything">
         <action
             android:id="@+id/action_navigation_everything_to_detailsFragment"

@@ -10,18 +10,9 @@
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/top_headlines_menu"
-        android:title="@string/item_top_headlines"
-        app:showAsAction="ifRoom" />
-
-    <item
-        android:id="@+id/everything_menu"
-        android:title="@string/item_everything"
-        app:showAsAction="ifRoom" />
-
-    <item
-        android:id="@+id/clear_saved"
-        android:title="@string/item_clear_saved"
+        android:id="@+id/clear_all_saved"
+        android:icon="@drawable/icon_clear_all"
+        android:title="@string/item_clear_all_saved"
         app:showAsAction="ifRoom" />
 
 

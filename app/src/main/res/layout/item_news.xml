@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:foreground="?attr/selectableItemBackground"
-    android:layout_height="150dp">
+    android:layout_height="150dp"
+    android:foreground="?attr/selectableItemBackground">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -26,7 +27,8 @@
                 android:maxLines="1"
                 android:textColor="@color/Black"
                 android:textSize="14sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:text="Заголовок новости" />
 
             <TextView
                 android:id="@+id/text_news_description"
@@ -36,7 +38,8 @@
                 android:ellipsize="end"
                 android:maxLines="3"
                 android:textColor="@color/Black"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                tools:text="Описание новости" />
 
 
         </LinearLayout>
