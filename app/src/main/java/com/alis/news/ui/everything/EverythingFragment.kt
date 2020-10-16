@@ -10,10 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alis.news.R
 import com.alis.news.adapters.NewsAdapter
 import com.alis.news.data.remote.Status
-import com.alis.news.extension.invisible
-import com.alis.news.extension.isNetworkAvailable
-import com.alis.news.extension.showToastShort
-import com.alis.news.extension.visible
+import com.alis.news.extension.*
 import com.alis.news.models.NewsArticles
 import com.alis.news.ui.details.DetailsFragment
 import com.alis.news.utils.SimpleOnQueryTextListener
@@ -108,7 +105,7 @@ class EverythingFragment : Fragment() {
             when (it.status) {
                 Status.LOADING -> progress_everything.visible()
                 Status.SUCCESS -> {
-                    progress_everything.invisible()
+                    progress_everything.gone()
                     if (articles != null) {
                         adapterEverything.addAll(articles)
                     }
@@ -123,7 +120,7 @@ class EverythingFragment : Fragment() {
             when (it.status) {
                 Status.LOADING -> progress_top_headlines.visible()
                 Status.SUCCESS -> {
-                    progress_top_headlines.invisible()
+                    progress_top_headlines.gone()
                     listEverything.clear()
                     if (articles != null) {
                         adapterEverything.addAll(articles)

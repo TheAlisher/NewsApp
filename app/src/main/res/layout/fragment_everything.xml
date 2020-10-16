@@ -10,9 +10,7 @@
         android:id="@+id/recycler_everything"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:clipToPadding="false"
-        android:paddingBottom="50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/progress_everything"
         app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/item_news" />
 
@@ -22,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="@color/Transparent"
-        android:visibility="invisible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />

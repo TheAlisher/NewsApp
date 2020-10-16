@@ -1,7 +1,6 @@
 package com.alis.news.ui.top_headlines
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
@@ -12,10 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alis.news.R
 import com.alis.news.adapters.NewsAdapter
 import com.alis.news.data.remote.Status
-import com.alis.news.extension.invisible
-import com.alis.news.extension.isNetworkAvailable
-import com.alis.news.extension.showToastShort
-import com.alis.news.extension.visible
+import com.alis.news.extension.*
 import com.alis.news.models.NewsArticles
 import com.alis.news.ui.details.DetailsFragment
 import com.alis.news.utils.SimpleOnQueryTextListener
@@ -98,7 +94,6 @@ class TopHeadlinesFragment : Fragment() {
     private fun fetchTopHeadlines() {
         if (isNetworkAvailable(requireActivity())) {
             viewModel.fetchTopHeadlinesFromAPI()
-            //viewModel.fetchTopHeadlinesQuery("bitcoin")
         } else {
             viewModel.fetchTopHeadlinesFromDatabase()
         }
@@ -110,7 +105,7 @@ class TopHeadlinesFragment : Fragment() {
             when (it.status) {
                 Status.LOADING -> progress_top_headlines.visible()
                 Status.SUCCESS -> {
-                    progress_top_headlines.invisible()
+                    progress_top_headlines.gone()
                     if (articles != null) {
                         adapterTopHeadlines.addAll(articles)
                     }
@@ -125,7 +120,7 @@ class TopHeadlinesFragment : Fragment() {
             when (it.status) {
                 Status.LOADING -> progress_top_headlines.visible()
                 Status.SUCCESS -> {
-                    progress_top_headlines.invisible()
+                    progress_top_headlines.gone()
                     listTopHeadlines.clear()
                     if (articles != null) {
                         adapterTopHeadlines.addAll(articles)
