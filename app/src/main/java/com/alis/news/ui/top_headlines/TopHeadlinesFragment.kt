@@ -79,7 +79,7 @@ class TopHeadlinesFragment : Fragment() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (!recyclerView.canScrollVertically(1)) {
-                    viewModel.fetchTopHeadlinesFromAPI()
+                    fetchTopHeadlines()
                 }
             }
         })
