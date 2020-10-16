@@ -8,6 +8,7 @@
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:textColorSecondary">@color/White</item>
         <item name="android:editTextColor">@color/White</item>
+        <item name="android:windowBackground">@drawable/splash_screen</item>
     </style>
 
 
