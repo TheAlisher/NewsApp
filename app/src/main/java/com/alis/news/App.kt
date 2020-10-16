@@ -9,10 +9,6 @@ import org.koin.core.context.startKoin
 
 class App : Application() {
 
-    companion object {
-        lateinit var newsDatabase: NewsDatabase
-    }
-
     override fun onCreate() {
         super.onCreate()
 
@@ -20,14 +16,5 @@ class App : Application() {
             androidContext(this@App)
             modules(newsModule)
         }
-
-        newsDatabase = Room.databaseBuilder(
-            this,
-            NewsDatabase::class.java,
-            "news.database"
-        )
-            .fallbackToDestructiveMigration()
-            .allowMainThreadQueries()
-            .build()
     }
 }
