@@ -1,8 +1,9 @@
 package com.alis.news.ui.top_headlines
 
+import android.app.SearchManager
+import android.content.Context
 import android.view.*
 import androidx.appcompat.widget.SearchView
-import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -122,10 +123,16 @@ class TopHeadlinesFragment : BaseFragment<TopHeadlinesViewModel>(R.layout.fragme
     }
 
     private fun searchLogic(menu: Menu) {
-        val itemSearch = menu.findItem(R.id.search_menu)
-        val searchView: SearchView = itemSearch.actionView as SearchView
+        val searchView: SearchView = menu.findItem(R.id.search_menu).actionView as SearchView
+        val searchManager =
+            requireActivity().getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(requireActivity().componentName))
+
+        val viewSearch: View = searchView.findViewById(androidx.appcompat.R.id.search_plate)
+        viewSearch.setBackgroundColor(resources.getColor(R.color.FortnigtlyPurple, null))
+
         searchView.setOnQueryTextListener(
-            object : SimpleOnQueryTextListener(), OnQueryTextListener {
+            object : SimpleOnQueryTextListener(), SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
                     adapterTopHeadlines.clear()
                     viewModel.fetchTopHeadlinesQuery(query.toString())

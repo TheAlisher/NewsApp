@@ -1,5 +1,7 @@
 package com.alis.news.ui.everything
 
+import android.app.SearchManager
+import android.content.Context
 import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -14,7 +16,6 @@ import com.alis.news.models.NewsArticles
 import com.alis.news.ui.details.DetailsFragment
 import com.alis.news.utils.SimpleOnQueryTextListener
 import kotlinx.android.synthetic.main.fragment_everything.*
-import kotlinx.android.synthetic.main.fragment_top_headlines.*
 import org.koin.android.ext.android.inject
 
 class EverythingFragment : BaseFragment<EverythingViewModel>(R.layout.fragment_everything) {
@@ -99,7 +100,7 @@ class EverythingFragment : BaseFragment<EverythingViewModel>(R.layout.fragment_e
             when (it.status) {
                 Status.LOADING -> {
                     if (viewModel.isPagination.value == true) {
-                        shimmer_everything.stopShimmer()
+                        progress_everything.visible()
                     }
                 }
                 Status.SUCCESS -> {
@@ -122,8 +123,14 @@ class EverythingFragment : BaseFragment<EverythingViewModel>(R.layout.fragment_e
     }
 
     private fun searchLogic(menu: Menu) {
-        val itemSearch = menu.findItem(R.id.search_menu)
-        val searchView: SearchView = itemSearch.actionView as SearchView
+        val searchView: SearchView = menu.findItem(R.id.search_menu).actionView as SearchView
+        val searchManager =
+            requireActivity().getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(requireActivity().componentName))
+
+        val viewSearch: View = searchView.findViewById(androidx.appcompat.R.id.search_plate)
+        viewSearch.setBackgroundColor(resources.getColor(R.color.FortnigtlyPurple, null))
+
         searchView.setOnQueryTextListener(
             object : SimpleOnQueryTextListener(), SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {

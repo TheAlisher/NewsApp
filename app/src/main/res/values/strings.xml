@@ -2,10 +2,15 @@
     <string name="app_name">News</string>
 
     <!--Menu-->
-    <string name="item_top_headlines">Главные заголовки</string>
-    <string name="item_everything">Все</string>
     <string name="item_search">Поиск</string>
     <string name="item_clear_all_saved">Очистить все сохраненное</string>
+
+    <!--Navigation-->
+    <string name="navigation_top_headlines">Главные заголовки</string>
+    <string name="navigation_everything">Все</string>
+
+    <!--xml-->
+    <string name="search_hint">Поиск…</string>
 
     <!--ContentDescription-->
     <string name="contentDescription_image_news">Image news</string>
