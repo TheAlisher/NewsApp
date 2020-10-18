@@ -1,7 +1,6 @@
 package com.alis.news.ui.activity
 
 import android.os.Bundle
-import android.view.Menu
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
@@ -9,6 +8,8 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.alis.news.R
+import com.alis.news.extension.gone
+import com.alis.news.extension.visible
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -48,9 +49,18 @@ class MainActivity : AppCompatActivity() {
     private fun addNavControllerDestinationChangedListener() {
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
             when (destination.id) {
-                R.id.navigation_top_headlines -> window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
-                R.id.navigation_everything -> window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
-                R.id.detailsFragment -> window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+                R.id.navigation_top_headlines -> {
+                    window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+                    bottomNav.visible()
+                }
+                R.id.navigation_everything -> {
+                    window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+                    bottomNav.visible()
+                }
+                R.id.detailsFragment -> {
+                    window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+                    bottomNav.gone()
+                }
             }
         }
     }
