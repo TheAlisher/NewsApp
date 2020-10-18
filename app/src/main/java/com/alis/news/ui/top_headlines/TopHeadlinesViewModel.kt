@@ -10,7 +10,6 @@ import com.alis.news.models.NewsResponse
 class TopHeadlinesViewModel(private val newsRepository: NewsRepository) : BaseViewModel() {
 
     var news = MutableLiveData<Resource<NewsResponse>>()
-    var newsQuery = MutableLiveData<Resource<NewsResponse>>()
 
     private var page: Int = 0
 
@@ -28,7 +27,7 @@ class TopHeadlinesViewModel(private val newsRepository: NewsRepository) : BaseVi
     }
 
     fun fetchTopHeadlinesQuery(q: String) {
-        newsQuery = newsRepository.fetchTopHeadlines(
+        news = newsRepository.fetchTopHeadlines(
             q = q
         ) as MutableLiveData<Resource<NewsResponse>>
     }

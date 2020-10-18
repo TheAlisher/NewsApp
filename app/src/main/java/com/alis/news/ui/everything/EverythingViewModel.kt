@@ -10,7 +10,6 @@ import com.alis.news.models.NewsResponse
 class EverythingViewModel(private val newsRepository: NewsRepository) : BaseViewModel() {
 
     var news = MutableLiveData<Resource<NewsResponse>>()
-    var newsQuery = MutableLiveData<Resource<NewsResponse>>()
 
     private var page: Int = 0
 
@@ -28,7 +27,7 @@ class EverythingViewModel(private val newsRepository: NewsRepository) : BaseView
     }
 
     fun fetchEverythingQuery(q: String) {
-        newsQuery = newsRepository.fetchEverything(
+        news = newsRepository.fetchEverything(
             q = q
         ) as MutableLiveData<Resource<NewsResponse>>
     }
