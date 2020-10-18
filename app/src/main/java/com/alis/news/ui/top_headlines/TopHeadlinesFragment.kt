@@ -40,8 +40,21 @@ class TopHeadlinesFragment : BaseFragment<TopHeadlinesViewModel>(R.layout.fragme
     }
 
     override fun setUpListeners() {
+        swipeRefresh()
         clickAdapter()
         addOnScrollRecycler()
+    }
+
+    private fun swipeRefresh() {
+        swipeRefresh_top_headlines.setOnRefreshListener {
+            if (isOnline(requireActivity())) {
+                adapterTopHeadlines.clear()
+                viewModel.fetchTopHeadlinesFromAPI()
+            } else {
+                showToastShort(requireContext(), R.string.toast_check_internet_connection)
+                swipeRefresh_top_headlines.isRefreshing = false
+            }
+        }
     }
 
     private fun clickAdapter() {
@@ -71,7 +84,6 @@ class TopHeadlinesFragment : BaseFragment<TopHeadlinesViewModel>(R.layout.fragme
         fetchTopHeadlines()
 
         subscribeToNews()
-        subscribeToNewsQuery()
     }
 
     private fun fetchTopHeadlines() {
@@ -87,25 +99,13 @@ class TopHeadlinesFragment : BaseFragment<TopHeadlinesViewModel>(R.layout.fragme
         viewModel.news.observe(viewLifecycleOwner, {
             val articles = it.data?.articles
             when (it.status) {
-                Status.LOADING -> progress_top_headlines.visible()
-                Status.SUCCESS -> {
-                    progress_top_headlines.gone()
-                    if (articles != null) {
-                        adapterTopHeadlines.addAll(articles)
-                    }
+                Status.LOADING -> {
+                    swipeRefresh_top_headlines.isRefreshing = true
+                    progress_top_headlines.visible()
                 }
-            }
-        })
-    }
-
-    private fun subscribeToNewsQuery() {
-        viewModel.newsQuery.observe(viewLifecycleOwner, {
-            val articles = it.data?.articles
-            when (it.status) {
-                Status.LOADING -> progress_top_headlines.visible()
                 Status.SUCCESS -> {
+                    swipeRefresh_top_headlines.isRefreshing = false
                     progress_top_headlines.gone()
-                    listTopHeadlines.clear()
                     if (articles != null) {
                         adapterTopHeadlines.addAll(articles)
                     }
@@ -127,6 +127,7 @@ class TopHeadlinesFragment : BaseFragment<TopHeadlinesViewModel>(R.layout.fragme
         searchView.setOnQueryTextListener(
             object : SimpleOnQueryTextListener(), OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
+                    adapterTopHeadlines.clear()
                     viewModel.fetchTopHeadlinesQuery(query.toString())
                     return true
                 }

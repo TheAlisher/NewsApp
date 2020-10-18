@@ -40,8 +40,21 @@ class EverythingFragment : BaseFragment<EverythingViewModel>(R.layout.fragment_e
     }
 
     override fun setUpListeners() {
+        swipeRefresh()
         clickAdapter()
         addOnScrollRecycler()
+    }
+
+    private fun swipeRefresh() {
+        swipeRefresh_everything.setOnRefreshListener {
+            if (isOnline(requireActivity())) {
+                swipeRefresh()
+                viewModel.fetchEverythingFromAPI()
+            } else {
+                showToastShort(requireContext(), R.string.toast_check_internet_connection)
+                swipeRefresh_everything.isRefreshing = false
+            }
+        }
     }
 
     private fun clickAdapter() {
@@ -71,7 +84,6 @@ class EverythingFragment : BaseFragment<EverythingViewModel>(R.layout.fragment_e
         fetchEverything()
 
         subscribeToNews()
-        subscribeToNewsQuery()
     }
 
     private fun fetchEverything() {
@@ -87,25 +99,13 @@ class EverythingFragment : BaseFragment<EverythingViewModel>(R.layout.fragment_e
         viewModel.news.observe(viewLifecycleOwner, {
             val articles = it.data?.articles
             when (it.status) {
-                Status.LOADING -> progress_everything.visible()
-                Status.SUCCESS -> {
-                    progress_everything.gone()
-                    if (articles != null) {
-                        adapterEverything.addAll(articles)
-                    }
+                Status.LOADING -> {
+                    swipeRefresh_everything.isRefreshing = true
+                    progress_everything.visible()
                 }
-            }
-        })
-    }
-
-    private fun subscribeToNewsQuery() {
-        viewModel.newsQuery.observe(viewLifecycleOwner, {
-            val articles = it.data?.articles
-            when (it.status) {
-                Status.LOADING -> progress_top_headlines.visible()
                 Status.SUCCESS -> {
-                    progress_top_headlines.gone()
-                    listEverything.clear()
+                    swipeRefresh_everything.isRefreshing = false
+                    progress_everything.gone()
                     if (articles != null) {
                         adapterEverything.addAll(articles)
                     }
@@ -127,6 +127,7 @@ class EverythingFragment : BaseFragment<EverythingViewModel>(R.layout.fragment_e
         searchView.setOnQueryTextListener(
             object : SimpleOnQueryTextListener(), SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
+                    adapterEverything.clear()
                     viewModel.fetchEverythingQuery(query.toString())
                     return true
                 }
