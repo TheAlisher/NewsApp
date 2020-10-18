@@ -7,7 +7,7 @@
         android:icon="@drawable/icon_search"
         android:title="@string/item_search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
-        app:showAsAction="always" />
+        app:showAsAction="always|collapseActionView" />
 
     <item
         android:id="@+id/clear_all_saved"
