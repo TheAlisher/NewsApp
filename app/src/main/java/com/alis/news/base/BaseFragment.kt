@@ -1,25 +1,33 @@
 package com.alis.news.base
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 
-open class BaseFragment : Fragment() {
+abstract class BaseFragment<ViewModel : BaseViewModel>(private val layoutID: Int) : Fragment() {
 
-    protected var hasInitializedRootView = false
-    private var rootView: View? = null
+    protected abstract val viewModel: ViewModel
 
-    fun getPersistentViews(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        layoutID: Int
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        if (rootView == null) {
-            rootView = inflater.inflate(layoutID, container, false)
-        } else {
-            (rootView?.parent as? ViewGroup)?.removeView(rootView)
-        }
-        return rootView
+        setHasOptionsMenu(true)
+        return inflater.inflate(layoutID, container, false)
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        initializeViews()
+        setUpListeners()
+        observe()
+    }
+
+    abstract fun initializeViews()
+
+    abstract fun setUpListeners()
+
+    abstract fun observe()
 }
