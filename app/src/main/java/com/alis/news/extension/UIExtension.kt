@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
 
 fun showToastShort(context: Context, message: String) {
@@ -32,6 +33,14 @@ fun View.invisible() {
 
 fun View.gone() {
     visibility = View.GONE
+}
+
+fun SwipeRefreshLayout.startRefresh() {
+    isRefreshing = true
+}
+
+fun SwipeRefreshLayout.stopRefresh() {
+    isRefreshing = false
 }
 
 fun ImageView.loadImage(url: String? = null, placeholder: Int = 0) {
