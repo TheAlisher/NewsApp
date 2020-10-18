@@ -38,6 +38,11 @@ class NewsAdapter(
         notifyDataSetChanged()
     }
 
+    fun clear() {
+        this.list.clear()
+        notifyDataSetChanged()
+    }
+
     fun setOnItemClickListener(onItemClickListener: OnItemClickListener) {
         this.listener = onItemClickListener
     }
@@ -48,7 +53,6 @@ class NewsAdapter(
             itemView.image_news.loadImage(newsArticles.urlToImage)
             itemView.text_news_title.text = newsArticles.title
             itemView.text_news_description.text = newsArticles.description
-
         }
     }
 
