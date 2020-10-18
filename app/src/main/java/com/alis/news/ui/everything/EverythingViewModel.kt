@@ -2,11 +2,12 @@ package com.alis.news.ui.everything
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.alis.news.base.BaseViewModel
 import com.alis.news.data.remote.Resource
 import com.alis.news.data.repository.NewsRepository
 import com.alis.news.models.NewsResponse
 
-class EverythingViewModel(private val newsRepository: NewsRepository) : ViewModel() {
+class EverythingViewModel(private val newsRepository: NewsRepository) : BaseViewModel() {
 
     var news = MutableLiveData<Resource<NewsResponse>>()
     var newsQuery = MutableLiveData<Resource<NewsResponse>>()

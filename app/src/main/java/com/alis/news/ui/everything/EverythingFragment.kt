@@ -1,14 +1,13 @@
 package com.alis.news.ui.everything
 
-import android.os.Bundle
 import android.view.*
 import androidx.appcompat.widget.SearchView
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alis.news.R
 import com.alis.news.adapters.NewsAdapter
+import com.alis.news.base.BaseFragment
 import com.alis.news.data.remote.Status
 import com.alis.news.extension.*
 import com.alis.news.models.NewsArticles
@@ -16,32 +15,16 @@ import com.alis.news.ui.details.DetailsFragment
 import com.alis.news.utils.SimpleOnQueryTextListener
 import kotlinx.android.synthetic.main.fragment_everything.*
 import kotlinx.android.synthetic.main.fragment_top_headlines.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.android.ext.android.inject
 
-class EverythingFragment : Fragment() {
+class EverythingFragment : BaseFragment<EverythingViewModel>(R.layout.fragment_everything) {
 
-    private val viewModel by viewModel<EverythingViewModel>()
+    override val viewModel by inject<EverythingViewModel>()
 
     private lateinit var adapterEverything: NewsAdapter
     private var listEverything: MutableList<NewsArticles> = mutableListOf()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        setHasOptionsMenu(true)
-        return inflater.inflate(R.layout.fragment_everything, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        initializeViews()
-        setUpListeners()
-        observe()
-    }
-
-    private fun initializeViews() {
+    override fun initializeViews() {
         adapterEverything = NewsAdapter(listEverything)
         val layoutManagerEverything = LinearLayoutManager(context)
         recycler_everything.apply {
@@ -56,7 +39,7 @@ class EverythingFragment : Fragment() {
         }
     }
 
-    private fun setUpListeners() {
+    override fun setUpListeners() {
         clickAdapter()
         addOnScrollRecycler()
     }
@@ -84,7 +67,7 @@ class EverythingFragment : Fragment() {
         })
     }
 
-    private fun observe() {
+    override fun observe() {
         fetchEverything()
 
         subscribeToNews()

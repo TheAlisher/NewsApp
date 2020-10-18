@@ -1,48 +1,30 @@
 package com.alis.news.ui.top_headlines
 
-import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alis.news.R
 import com.alis.news.adapters.NewsAdapter
+import com.alis.news.base.BaseFragment
 import com.alis.news.data.remote.Status
 import com.alis.news.extension.*
 import com.alis.news.models.NewsArticles
 import com.alis.news.ui.details.DetailsFragment
 import com.alis.news.utils.SimpleOnQueryTextListener
 import kotlinx.android.synthetic.main.fragment_top_headlines.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.android.ext.android.inject
 
-class TopHeadlinesFragment : Fragment() {
+class TopHeadlinesFragment : BaseFragment<TopHeadlinesViewModel>(R.layout.fragment_top_headlines) {
 
-    private val viewModel by viewModel<TopHeadlinesViewModel>()
+    override val viewModel by inject<TopHeadlinesViewModel>()
 
     private lateinit var adapterTopHeadlines: NewsAdapter
     private var listTopHeadlines: MutableList<NewsArticles> = mutableListOf()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        setHasOptionsMenu(true)
-        return inflater.inflate(R.layout.fragment_top_headlines, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        initializeViews()
-        setUpListeners()
-        observe()
-    }
-
-    private fun initializeViews() {
+    override fun initializeViews() {
         adapterTopHeadlines = NewsAdapter(listTopHeadlines)
         val layoutManagerTopHeadlines = LinearLayoutManager(context)
         recycler_top_headlines.apply {
@@ -57,7 +39,7 @@ class TopHeadlinesFragment : Fragment() {
         }
     }
 
-    private fun setUpListeners() {
+    override fun setUpListeners() {
         clickAdapter()
         addOnScrollRecycler()
     }
@@ -85,7 +67,7 @@ class TopHeadlinesFragment : Fragment() {
         })
     }
 
-    private fun observe() {
+    override fun observe() {
         fetchTopHeadlines()
 
         subscribeToNews()
