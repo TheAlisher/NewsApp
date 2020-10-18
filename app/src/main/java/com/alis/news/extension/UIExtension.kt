@@ -6,6 +6,8 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 
 fun showToastShort(context: Context, message: String) {
     Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
@@ -47,5 +49,17 @@ fun ImageView.loadImage(url: String? = null, placeholder: Int = 0) {
     Glide.with(context)
         .load(url)
         .placeholder(placeholder)
+        .into(this)
+}
+
+fun ImageView.loadCenterCropRoundImage(
+    url: String? = null,
+    placeholder: Int = 0,
+    roundedRadius: Int
+) {
+    Glide.with(context)
+        .load(url)
+        .placeholder(placeholder)
+        .transform(CenterCrop(), RoundedCorners(roundedRadius))
         .into(this)
 }
