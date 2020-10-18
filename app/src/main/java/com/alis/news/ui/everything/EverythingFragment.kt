@@ -47,13 +47,8 @@ class EverythingFragment : BaseFragment<EverythingViewModel>(R.layout.fragment_e
 
     private fun swipeRefresh() {
         swipeRefresh_everything.setOnRefreshListener {
-            if (isOnline(requireActivity())) {
-                swipeRefresh()
-                viewModel.fetchEverythingFromAPI()
-            } else {
-                showToastShort(requireContext(), R.string.toast_check_internet_connection)
-                swipeRefresh_everything.isRefreshing = false
-            }
+            adapterEverything.clear()
+            fetchEverything()
         }
     }
 
@@ -92,6 +87,7 @@ class EverythingFragment : BaseFragment<EverythingViewModel>(R.layout.fragment_e
         } else {
             viewModel.getAllFromDatabase()
             showToastShort(requireContext(), R.string.toast_check_internet_connection)
+            swipeRefresh_everything.stopRefresh()
         }
     }
 
@@ -100,11 +96,11 @@ class EverythingFragment : BaseFragment<EverythingViewModel>(R.layout.fragment_e
             val articles = it.data?.articles
             when (it.status) {
                 Status.LOADING -> {
-                    swipeRefresh_everything.isRefreshing = true
+                    swipeRefresh_everything.startRefresh()
                     progress_everything.visible()
                 }
                 Status.SUCCESS -> {
-                    swipeRefresh_everything.isRefreshing = false
+                    swipeRefresh_everything.stopRefresh()
                     progress_everything.gone()
                     if (articles != null) {
                         adapterEverything.addAll(articles)

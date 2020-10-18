@@ -47,13 +47,8 @@ class TopHeadlinesFragment : BaseFragment<TopHeadlinesViewModel>(R.layout.fragme
 
     private fun swipeRefresh() {
         swipeRefresh_top_headlines.setOnRefreshListener {
-            if (isOnline(requireActivity())) {
-                adapterTopHeadlines.clear()
-                viewModel.fetchTopHeadlinesFromAPI()
-            } else {
-                showToastShort(requireContext(), R.string.toast_check_internet_connection)
-                swipeRefresh_top_headlines.isRefreshing = false
-            }
+            adapterTopHeadlines.clear()
+            fetchTopHeadlines()
         }
     }
 
@@ -92,6 +87,7 @@ class TopHeadlinesFragment : BaseFragment<TopHeadlinesViewModel>(R.layout.fragme
         } else {
             viewModel.getAllFromDatabase()
             showToastShort(requireContext(), R.string.toast_check_internet_connection)
+            swipeRefresh_top_headlines.stopRefresh()
         }
     }
 
@@ -100,11 +96,11 @@ class TopHeadlinesFragment : BaseFragment<TopHeadlinesViewModel>(R.layout.fragme
             val articles = it.data?.articles
             when (it.status) {
                 Status.LOADING -> {
-                    swipeRefresh_top_headlines.isRefreshing = true
+                    swipeRefresh_top_headlines.startRefresh()
                     progress_top_headlines.visible()
                 }
                 Status.SUCCESS -> {
-                    swipeRefresh_top_headlines.isRefreshing = false
+                    swipeRefresh_top_headlines.stopRefresh()
                     progress_top_headlines.gone()
                     if (articles != null) {
                         adapterTopHeadlines.addAll(articles)
