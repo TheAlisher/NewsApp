@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.alis.news.R
-import com.alis.news.extension.loadImage
+import com.alis.news.extension.loadCenterCropRoundImage
 import com.alis.news.models.NewsArticles
 import kotlinx.android.synthetic.main.item_news.view.*
 
@@ -50,7 +50,10 @@ class NewsAdapter(
     class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun onBind(newsArticles: NewsArticles) {
-            itemView.image_news.loadImage(newsArticles.urlToImage)
+            itemView.image_news.loadCenterCropRoundImage(
+                newsArticles.urlToImage,
+                roundedRadius = 20
+            )
             itemView.text_news_title.text = newsArticles.title
             itemView.text_news_description.text = newsArticles.description
         }
