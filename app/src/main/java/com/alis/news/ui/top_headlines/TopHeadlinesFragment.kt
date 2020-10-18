@@ -69,6 +69,7 @@ class TopHeadlinesFragment : BaseFragment<TopHeadlinesViewModel>(R.layout.fragme
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (!recyclerView.canScrollVertically(1)) {
+                    viewModel.isPagination.value = true
                     fetchTopHeadlines()
                 }
             }
@@ -83,6 +84,7 @@ class TopHeadlinesFragment : BaseFragment<TopHeadlinesViewModel>(R.layout.fragme
 
     private fun fetchTopHeadlines() {
         if (isOnline(requireActivity())) {
+            shimmer_top_headlines.startShimmer()
             viewModel.fetchTopHeadlinesFromAPI()
         } else {
             viewModel.getAllFromDatabase()
@@ -96,10 +98,12 @@ class TopHeadlinesFragment : BaseFragment<TopHeadlinesViewModel>(R.layout.fragme
             val articles = it.data?.articles
             when (it.status) {
                 Status.LOADING -> {
-                    swipeRefresh_top_headlines.startRefresh()
-                    progress_top_headlines.visible()
+                    if (viewModel.isPagination.value == true) {
+                        progress_top_headlines.visible()
+                    }
                 }
                 Status.SUCCESS -> {
+                    shimmer_top_headlines.stopShimmer()
                     swipeRefresh_top_headlines.stopRefresh()
                     progress_top_headlines.gone()
                     if (articles != null) {

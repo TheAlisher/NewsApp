@@ -69,6 +69,7 @@ class EverythingFragment : BaseFragment<EverythingViewModel>(R.layout.fragment_e
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (!recyclerView.canScrollVertically(1)) {
+                    viewModel.isPagination.value = true
                     fetchEverything()
                 }
             }
@@ -83,6 +84,7 @@ class EverythingFragment : BaseFragment<EverythingViewModel>(R.layout.fragment_e
 
     private fun fetchEverything() {
         if (isOnline(requireActivity())) {
+            shimmer_everything.startShimmer()
             viewModel.fetchEverythingFromAPI()
         } else {
             viewModel.getAllFromDatabase()
@@ -96,10 +98,12 @@ class EverythingFragment : BaseFragment<EverythingViewModel>(R.layout.fragment_e
             val articles = it.data?.articles
             when (it.status) {
                 Status.LOADING -> {
-                    swipeRefresh_everything.startRefresh()
-                    progress_everything.visible()
+                    if (viewModel.isPagination.value == true) {
+                        shimmer_everything.stopShimmer()
+                    }
                 }
                 Status.SUCCESS -> {
+                    shimmer_everything.stopShimmer()
                     swipeRefresh_everything.stopRefresh()
                     progress_everything.gone()
                     if (articles != null) {

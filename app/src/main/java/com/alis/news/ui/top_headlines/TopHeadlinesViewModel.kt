@@ -10,6 +10,7 @@ import com.alis.news.models.NewsResponse
 class TopHeadlinesViewModel(private val newsRepository: NewsRepository) : BaseViewModel() {
 
     var news = MutableLiveData<Resource<NewsResponse>>()
+    var isPagination = MutableLiveData<Boolean>()
 
     private var page: Int = 0
 

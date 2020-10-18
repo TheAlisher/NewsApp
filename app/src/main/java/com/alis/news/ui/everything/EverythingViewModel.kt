@@ -10,6 +10,7 @@ import com.alis.news.models.NewsResponse
 class EverythingViewModel(private val newsRepository: NewsRepository) : BaseViewModel() {
 
     var news = MutableLiveData<Resource<NewsResponse>>()
+    var isPagination = MutableLiveData<Boolean>()
 
     private var page: Int = 0
 
@@ -33,6 +34,6 @@ class EverythingViewModel(private val newsRepository: NewsRepository) : BaseView
     }
 
     fun clearDatabase() {
-        //TODO: clear
+        //TODO: clear db
     }
 }
