@@ -18,6 +18,8 @@ class NewsRepository(private val newsAPI: NewsAPI, private val newsDao: NewsDao)
         emit(Resource.loading(data = null))
         try {
             emit(Resource.success(data = newsAPI.fetchTopHeadlines(country, q, pageSize, page)))
+            deleteAll()
+            insertAll(newsAPI.fetchTopHeadlines(country, q, pageSize, page).articles)
         } catch (E: Exception) {
             emit(Resource.error(data = null, message = E.message ?: "Error Occured!"))
         }
@@ -45,7 +47,7 @@ class NewsRepository(private val newsAPI: NewsAPI, private val newsDao: NewsDao)
         newsDao.deleteAll()
     }
 
-    fun getAll() {
-        newsDao.getAll()
+    fun getAll(): List<NewsArticles>? {
+        return newsDao.getAll()
     }
 }

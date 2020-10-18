@@ -81,6 +81,7 @@ class TopHeadlinesFragment : BaseFragment<TopHeadlinesViewModel>(R.layout.fragme
         fetchTopHeadlines()
 
         subscribeToNews()
+        subscribeToNewsdb()
     }
 
     private fun fetchTopHeadlines() {
@@ -112,6 +113,12 @@ class TopHeadlinesFragment : BaseFragment<TopHeadlinesViewModel>(R.layout.fragme
                     }
                 }
             }
+        })
+    }
+
+    private fun subscribeToNewsdb() {
+        viewModel.newsdb.observe(viewLifecycleOwner, {
+            adapterTopHeadlines.addAll(it)
         })
     }
 

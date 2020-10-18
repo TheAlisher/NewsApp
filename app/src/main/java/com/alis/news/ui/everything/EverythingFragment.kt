@@ -81,6 +81,7 @@ class EverythingFragment : BaseFragment<EverythingViewModel>(R.layout.fragment_e
         fetchEverything()
 
         subscribeToNews()
+        subscribeToNewsdb()
     }
 
     private fun fetchEverything() {
@@ -112,6 +113,12 @@ class EverythingFragment : BaseFragment<EverythingViewModel>(R.layout.fragment_e
                     }
                 }
             }
+        })
+    }
+
+    private fun subscribeToNewsdb() {
+        viewModel.newsdb.observe(viewLifecycleOwner, {
+            adapterEverything.addAll(it)
         })
     }
 
