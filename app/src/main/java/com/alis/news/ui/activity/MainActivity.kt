@@ -12,6 +12,8 @@ import com.alis.news.extension.gone
 import com.alis.news.extension.visible
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.fragment_everything.*
+import kotlinx.android.synthetic.main.fragment_top_headlines.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -43,7 +45,21 @@ class MainActivity : AppCompatActivity() {
         toolbar.setupWithNavController(navController, appBarConfiguration)
         bottomNav.setupWithNavController(navController)
 
+        setOnNavigationItemReselectedListener()
         addNavControllerDestinationChangedListener()
+    }
+
+    private fun setOnNavigationItemReselectedListener() {
+        bottomNav.setOnNavigationItemReselectedListener {
+            when (it.itemId) {
+                R.id.navigation_top_headlines -> {
+                    recycler_top_headlines.smoothScrollToPosition(1)
+                }
+                R.id.navigation_everything -> {
+                    recycler_everything.smoothScrollToPosition(1)
+                }
+            }
+        }
     }
 
     private fun addNavControllerDestinationChangedListener() {
