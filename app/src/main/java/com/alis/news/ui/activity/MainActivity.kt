@@ -65,11 +65,7 @@ class MainActivity : AppCompatActivity() {
     private fun addNavControllerDestinationChangedListener() {
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
             when (destination.id) {
-                R.id.navigation_top_headlines -> {
-                    window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
-                    bottomNav.visible()
-                }
-                R.id.navigation_everything -> {
+                R.id.navigation_top_headlines, R.id.navigation_everything -> {
                     window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
                     bottomNav.visible()
                 }
