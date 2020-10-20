@@ -1,7 +1,7 @@
 package com.alis.news.ui.details
 
-import androidx.lifecycle.ViewModel
+import com.alis.news.base.BaseViewModel
 
-class DetailsViewModel : ViewModel() {
+class DetailsViewModel : BaseViewModel() {
 
 }

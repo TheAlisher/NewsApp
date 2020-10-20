@@ -11,12 +11,15 @@ import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.alis.news.R
+import com.alis.news.base.BaseFragment
 import com.alis.news.extension.loadImage
 import com.alis.news.models.NewsArticles
+import com.alis.news.ui.everything.EverythingViewModel
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_details.*
+import org.koin.android.ext.android.inject
 
-class DetailsFragment : Fragment() {
+class DetailsFragment : BaseFragment<DetailsViewModel>(R.layout.fragment_details) {
 
     companion object {
         private var item: NewsArticles? = null
@@ -26,16 +29,9 @@ class DetailsFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_details, container, false)
-    }
+    override val viewModel by inject<DetailsViewModel>()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    override fun initializeViews() {
         setNewsData()
     }
 
@@ -43,5 +39,13 @@ class DetailsFragment : Fragment() {
         image_details_news.loadImage(item?.urlToImage)
         text_details_title.text = item?.title
         text_details_description.text = item?.description
+    }
+
+    override fun setUpListeners() {
+
+    }
+
+    override fun observe() {
+
     }
 }
