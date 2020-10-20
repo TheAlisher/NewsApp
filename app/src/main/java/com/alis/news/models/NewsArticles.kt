@@ -10,7 +10,7 @@ import java.io.Serializable
 @TypeConverters(SourceConverter::class)
 data class NewsArticles(
     @PrimaryKey(autoGenerate = true)
-    var id: Int?,
+    var id: Int,
     var source: NewsSource? = null,
     var author: String? = null,
     var title: String? = null,
@@ -19,4 +19,5 @@ data class NewsArticles(
     var urlToImage: String? = null,
     var publishedAt: String? = null,
     var content: String? = null,
-) : Serializable
+    var isFavorite: Boolean = false
+)

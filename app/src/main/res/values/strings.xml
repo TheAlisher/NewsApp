@@ -15,6 +15,7 @@
 
     <!--ContentDescription-->
     <string name="contentDescription_image_news">Image news</string>
+    <string name="contentDescription_image_like">Image like</string>
 
     <!--Toast-->
     <string name="toast_error">Ошибка:</string>

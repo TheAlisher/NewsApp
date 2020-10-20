@@ -62,6 +62,16 @@ class TopHeadlinesFragment : BaseFragment<TopHeadlinesViewModel>(R.layout.fragme
                     item
                 )
             }
+
+            override fun onNewsItemLikeClick(item: NewsArticles) {
+                if (item.isFavorite) {
+                    item.isFavorite = false
+                    viewModel.deleteFavoriteNews(item)
+                } else {
+                    item.isFavorite = true
+                    viewModel.insertFavoriteNews(item)
+                }
+            }
         })
     }
 

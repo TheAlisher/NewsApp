@@ -62,6 +62,16 @@ class EverythingFragment : BaseFragment<EverythingViewModel>(R.layout.fragment_e
                     item
                 )
             }
+
+            override fun onNewsItemLikeClick(item: NewsArticles) {
+                if (item.isFavorite) {
+                    item.isFavorite = false
+                    viewModel.deleteFavoriteNews(item)
+                } else {
+                    item.isFavorite = true
+                    viewModel.insertFavoriteNews(item)
+                }
+            }
         })
     }
 

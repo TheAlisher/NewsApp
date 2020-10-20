@@ -3,59 +3,83 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="200dp"
     android:foreground="?attr/selectableItemBackground">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="20dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/image_news"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/text_news_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="@color/Black"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    tools:text="Заголовок новости" />
+
+                <TextView
+                    android:id="@+id/text_news_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:ellipsize="end"
+                    android:maxLines="3"
+                    android:textColor="@color/Black"
+                    android:textSize="20sp"
+                    tools:text="Описание новости" />
+
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/image_news"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginEnd="20dp"
+                android:contentDescription="@string/contentDescription_image_news"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="20dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/image_news"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_marginEnd="10dp"
+            android:gravity="end">
 
-            <TextView
-                android:id="@+id/text_news_title"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:textColor="@color/Black"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                tools:text="Заголовок новости" />
-
-            <TextView
-                android:id="@+id/text_news_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:ellipsize="end"
-                android:maxLines="3"
-                android:textColor="@color/Black"
-                android:textSize="20sp"
-                tools:text="Описание новости" />
+            <ImageView
+                android:id="@+id/image_news_like"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/contentDescription_image_like"
+                android:src="@drawable/icon_favorite_border" />
 
 
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/image_news"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginEnd="20dp"
-            android:contentDescription="@string/contentDescription_image_news"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 
 </androidx.cardview.widget.CardView>

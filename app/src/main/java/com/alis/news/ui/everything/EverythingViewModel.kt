@@ -11,7 +11,7 @@ class EverythingViewModel(private val newsRepository: NewsRepository) : BaseView
 
     var news = MutableLiveData<Resource<NewsResponse>>()
     var isPagination = MutableLiveData<Boolean>()
-    var newsdb =  MutableLiveData<List<NewsArticles>>()
+    var newsdb = MutableLiveData<List<NewsArticles>>()
 
     private var page: Int = 0
 
@@ -36,5 +36,13 @@ class EverythingViewModel(private val newsRepository: NewsRepository) : BaseView
 
     fun clearDatabase() {
         newsRepository.deleteAll()
+    }
+
+    fun insertFavoriteNews(newsArticles: NewsArticles) {
+        newsRepository.insertFavorite(newsArticles)
+    }
+
+    fun deleteFavoriteNews(newsArticles: NewsArticles) {
+        newsRepository.deleteFavorite(newsArticles)
     }
 }

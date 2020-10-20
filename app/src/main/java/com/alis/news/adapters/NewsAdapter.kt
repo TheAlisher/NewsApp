@@ -23,9 +23,30 @@ class NewsAdapter(
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         holder.onBind(list[position])
+        val item: NewsArticles = list[position]
+        setUpListeners(holder, item)
+    }
 
+    private fun setUpListeners(holder: NewsViewHolder, item: NewsArticles) {
+        clickNews(holder, item)
+        clickNewsLike(holder, item)
+    }
+
+    private fun clickNews(holder: NewsViewHolder, item: NewsArticles) {
         holder.itemView.setOnClickListener {
-            listener.onNewsItemClick(list[position])
+            listener.onNewsItemClick(item)
+        }
+    }
+
+    private fun clickNewsLike(holder: NewsViewHolder, item: NewsArticles) {
+        val imageLike = holder.itemView.image_news_like
+        holder.itemView.image_news_like.setOnClickListener {
+            listener.onNewsItemLikeClick(item)
+            if (item.isFavorite) {
+                imageLike.setImageResource(R.drawable.icon_favorite)
+            } else {
+                imageLike.setImageResource(R.drawable.icon_favorite_border)
+            }
         }
     }
 
@@ -43,10 +64,6 @@ class NewsAdapter(
         notifyDataSetChanged()
     }
 
-    fun setOnItemClickListener(onItemClickListener: OnItemClickListener) {
-        this.listener = onItemClickListener
-    }
-
     class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun onBind(newsArticles: NewsArticles) {
@@ -56,10 +73,21 @@ class NewsAdapter(
             )
             itemView.text_news_title.text = newsArticles.title
             itemView.text_news_description.text = newsArticles.description
+
+            if (newsArticles.isFavorite) {
+                itemView.image_news_like.setImageResource(R.drawable.icon_favorite)
+            } else {
+                itemView.image_news_like.setImageResource(R.drawable.icon_favorite_border)
+            }
         }
+    }
+
+    fun setOnItemClickListener(onItemClickListener: OnItemClickListener) {
+        this.listener = onItemClickListener
     }
 
     interface OnItemClickListener {
         fun onNewsItemClick(item: NewsArticles)
+        fun onNewsItemLikeClick(item: NewsArticles)
     }
 }

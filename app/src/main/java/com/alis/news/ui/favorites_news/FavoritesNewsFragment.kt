@@ -8,6 +8,7 @@ import com.alis.news.base.BaseFragment
 import com.alis.news.extension.gone
 import com.alis.news.extension.visible
 import com.alis.news.models.NewsArticles
+import com.alis.news.ui.details.DetailsFragment
 import kotlinx.android.synthetic.main.fragment_favorites_news.*
 import org.koin.android.ext.android.inject
 
@@ -40,19 +41,43 @@ class FavoritesNewsFragment :
     }
 
     private fun setUpFavorites() {
+        viewModel.getAllFromDatabase()
         if (listFavorites.isEmpty()) {
             text_favorites_empty.visible()
         } else {
             text_favorites_empty.gone()
-            viewModel.getAllFromDatabase()
         }
     }
 
     override fun setUpListeners() {
+        clickAdapter()
+    }
 
+    private fun clickAdapter() {
+        adapterFavorites.setOnItemClickListener(object : NewsAdapter.OnItemClickListener {
+            override fun onNewsItemClick(item: NewsArticles) {
+                DetailsFragment.start(
+                    requireActivity(),
+                    R.id.action_navigation_favorites_to_detailsFragment,
+                    item
+                )
+            }
+
+            override fun onNewsItemLikeClick(item: NewsArticles) {
+                if (item.isFavorite) {
+                    item.isFavorite = false
+                    viewModel.deleteFavoriteNews(item)
+                } else {
+                    item.isFavorite = true
+                    viewModel.insertFavoriteNews(item)
+                }
+            }
+        })
     }
 
     override fun observe() {
-        TODO("Not yet implemented")
+        viewModel.news.observe(viewLifecycleOwner, {
+            adapterFavorites.addAll(it)
+        })
     }
 }
