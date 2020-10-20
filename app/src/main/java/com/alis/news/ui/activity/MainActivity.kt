@@ -13,6 +13,7 @@ import com.alis.news.extension.visible
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.fragment_everything.*
+import kotlinx.android.synthetic.main.fragment_favorites_news.*
 import kotlinx.android.synthetic.main.fragment_top_headlines.*
 
 class MainActivity : AppCompatActivity() {
@@ -40,7 +41,11 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
         val appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.navigation_top_headlines, R.id.navigation_everything)
+            setOf(
+                R.id.navigation_top_headlines,
+                R.id.navigation_everything,
+                R.id.navigation_favorites
+            )
         )
         toolbar.setupWithNavController(navController, appBarConfiguration)
         bottomNav.setupWithNavController(navController)
@@ -57,6 +62,9 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.navigation_everything -> {
                     recycler_everything.smoothScrollToPosition(1)
+                }
+                R.id.navigation_favorites -> {
+                    recycler_favorites.smoothScrollToPosition(1)
                 }
             }
         }

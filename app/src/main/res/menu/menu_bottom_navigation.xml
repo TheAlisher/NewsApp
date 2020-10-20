@@ -11,5 +11,10 @@
         android:icon="@drawable/icon_everything"
         android:title="@string/navigation_everything" />
 
+    <item
+        android:id="@+id/navigation_favorites"
+        android:icon="@drawable/icon_favorite_border"
+        android:title="@string/item_favorites" />
+
 
 </menu>

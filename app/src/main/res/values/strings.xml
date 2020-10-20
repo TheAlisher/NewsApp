@@ -4,6 +4,7 @@
     <!--Menu-->
     <string name="item_search">Поиск</string>
     <string name="item_clear_all_saved">Очистить все сохраненное</string>
+    <string name="item_favorites">Избранное</string>
 
     <!--Navigation-->
     <string name="navigation_top_headlines">Главные заголовки</string>
@@ -19,6 +20,9 @@
     <string name="toast_error">Ошибка:</string>
     <string name="toast_cache_cleared">Кэш очищен</string>
     <string name="toast_check_internet_connection">Проверьте интернет-соединение</string>
+
+    <!--FavoritesNewsFragment-->
+    <string name="text_favorites_is_empty">Здесь пусто</string>
 
 
 </resources>
