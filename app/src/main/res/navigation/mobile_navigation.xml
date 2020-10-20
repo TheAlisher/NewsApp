@@ -33,8 +33,8 @@
     <fragment
         android:id="@+id/navigation_favorites"
         android:name="com.alis.news.ui.favorites_news.FavoritesNewsFragment"
-        android:label="fragment_favorites_news"
-        tools:layout="@layout/fragment_favorites_news" >
+        android:label="Favorites News"
+        tools:layout="@layout/fragment_favorites_news">
         <action
             android:id="@+id/action_navigation_favorites_to_detailsFragment"
             app:destination="@id/detailsFragment" />
