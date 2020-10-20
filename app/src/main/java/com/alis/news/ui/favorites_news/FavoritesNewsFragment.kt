@@ -42,7 +42,7 @@ class FavoritesNewsFragment :
 
     private fun setUpFavorites() {
         viewModel.getAllFromDatabase()
-        if (listFavorites.isEmpty()) {
+        if (listFavorites.toString().isEmpty()) {
             text_favorites_empty.visible()
         } else {
             text_favorites_empty.gone()
