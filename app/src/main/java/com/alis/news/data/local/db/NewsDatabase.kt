@@ -7,5 +7,4 @@ import com.alis.news.models.NewsArticles
 @Database(entities = [NewsArticles::class], version = 3)
 abstract class NewsDatabase : RoomDatabase() {
     abstract fun newsDao(): NewsDao
-    abstract fun favoritesNewsDao(): FavoritesNewsDao
 }

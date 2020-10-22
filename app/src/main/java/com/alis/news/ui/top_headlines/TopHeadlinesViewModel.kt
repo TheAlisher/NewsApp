@@ -39,10 +39,8 @@ class TopHeadlinesViewModel(private val newsRepository: NewsRepository) : BaseVi
     }
 
     fun insertFavoriteNews(newsArticles: NewsArticles) {
-        newsRepository.insertFavorite(newsArticles)
     }
 
     fun deleteFavoriteNews(newsArticles: NewsArticles) {
-        newsRepository.deleteFavorite(newsArticles)
     }
 }

@@ -39,10 +39,8 @@ class EverythingViewModel(private val newsRepository: NewsRepository) : BaseView
     }
 
     fun insertFavoriteNews(newsArticles: NewsArticles) {
-        newsRepository.insertFavorite(newsArticles)
     }
 
     fun deleteFavoriteNews(newsArticles: NewsArticles) {
-        newsRepository.deleteFavorite(newsArticles)
     }
 }

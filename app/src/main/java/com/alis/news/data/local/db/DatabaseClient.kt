@@ -19,8 +19,4 @@ class DatabaseClient {
     fun provideNews(database: NewsDatabase): NewsDao {
         return database.newsDao()
     }
-
-    fun provideFavoriteNews(database: NewsDatabase): FavoritesNewsDao {
-        return database.favoritesNewsDao()
-    }
 }

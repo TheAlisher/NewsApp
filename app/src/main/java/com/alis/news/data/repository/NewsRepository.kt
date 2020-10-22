@@ -1,18 +1,15 @@
 package com.alis.news.data.repository
 
 import androidx.lifecycle.liveData
-import com.alis.news.data.local.db.FavoritesNewsDao
 import com.alis.news.data.local.db.NewsDao
 import com.alis.news.data.remote.NewsAPI
 import com.alis.news.data.remote.Resource
 import com.alis.news.models.NewsArticles
 import kotlinx.coroutines.Dispatchers
-import okhttp3.internal.waitMillis
 
 class NewsRepository(
     private val newsAPI: NewsAPI,
     private val newsDao: NewsDao,
-    private val favoritesNewsDao: FavoritesNewsDao
 ) {
 
     fun fetchTopHeadlines(
@@ -54,17 +51,5 @@ class NewsRepository(
 
     fun getAll(): List<NewsArticles>? {
         return newsDao.getAll()
-    }
-
-    fun insertFavorite(newsArticles: NewsArticles) {
-        favoritesNewsDao.insert(newsArticles)
-    }
-
-    fun deleteFavorite(newsArticles: NewsArticles) {
-        favoritesNewsDao.delete(newsArticles)
-    }
-
-    fun getAllFavorites(): List<NewsArticles>? {
-        return favoritesNewsDao.getAll()
     }
 }

@@ -17,9 +17,8 @@ var newsModule = module {
     single { RetrofitClient().provideNews() }
     single { DatabaseClient().provideDatabase(androidApplication()) }
     single { DatabaseClient().provideNews(get()) }
-    single { DatabaseClient().provideFavoriteNews(get()) }
 
-    factory { NewsRepository(get(), get(), get()) }
+    factory { NewsRepository(get(), get()) }
 
     viewModel { TopHeadlinesViewModel(get()) }
     viewModel { EverythingViewModel(get()) }

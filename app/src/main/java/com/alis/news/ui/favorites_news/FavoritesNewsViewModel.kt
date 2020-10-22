@@ -10,14 +10,11 @@ class FavoritesNewsViewModel(private val newsRepository: NewsRepository) : BaseV
     var news = MutableLiveData<List<NewsArticles>>()
 
     fun getAllFromDatabase() {
-        news.value = newsRepository.getAllFavorites()
     }
 
     fun insertFavoriteNews(newsArticles: NewsArticles) {
-        newsRepository.insertFavorite(newsArticles)
     }
 
     fun deleteFavoriteNews(newsArticles: NewsArticles) {
-        newsRepository.deleteFavorite(newsArticles)
     }
 }
