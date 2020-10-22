@@ -7,7 +7,7 @@ import com.alis.news.data.repository.NewsRepository
 import com.alis.news.ui.everything.EverythingViewModel
 import com.alis.news.ui.favorites_news.FavoritesNewsViewModel
 import com.alis.news.ui.top_headlines.TopHeadlinesViewModel
-import org.koin.android.ext.koin.androidApplication
+import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -15,7 +15,7 @@ var newsModule = module {
 
     single { AppPreferences(get()) }
     single { RetrofitClient().provideNews() }
-    single { DatabaseClient().provideDatabase(androidApplication()) }
+    single { DatabaseClient().provideDatabase(androidContext()) }
     single { DatabaseClient().provideNews(get()) }
 
     factory { NewsRepository(get(), get()) }

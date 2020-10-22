@@ -1,18 +1,16 @@
 package com.alis.news.data.local.db
 
-import android.app.Application
+import android.content.Context
 import androidx.room.Room
 
 class DatabaseClient {
 
-    internal fun provideDatabase(application: Application): NewsDatabase {
+    internal fun provideDatabase(context: Context): NewsDatabase {
         return Room.databaseBuilder(
-            application,
+            context,
             NewsDatabase::class.java,
             "news.database"
         )
-            .fallbackToDestructiveMigration()
-            .allowMainThreadQueries()
             .build()
     }
 
