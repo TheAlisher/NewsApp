@@ -3,11 +3,10 @@ package com.alis.news.models
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
-import com.alis.news.data.local.db.converter.SourceConverter
-import java.io.Serializable
+import com.alis.news.data.local.db.converter.JSONConverter
 
 @Entity
-@TypeConverters(SourceConverter::class)
+@TypeConverters(JSONConverter::class)
 data class NewsArticles(
     @PrimaryKey(autoGenerate = true)
     var id: Int,
