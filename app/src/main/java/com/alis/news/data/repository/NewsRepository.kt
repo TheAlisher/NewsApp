@@ -20,8 +20,9 @@ class NewsRepository(
     ) = liveData(Dispatchers.IO) {
         emit(Resource.loading(data = null))
         try {
-            emit(Resource.success(data = newsAPI.fetchTopHeadlines(country, q, pageSize, page)))
-            //insertAll(newsAPI.fetchTopHeadlines(country, q, pageSize, page).articles)
+            val result = newsAPI.fetchTopHeadlines(country, q, pageSize, page)
+            emit(Resource.success(data = result))
+            //newsDao.insertAll(result.articles)
         } catch (E: Exception) {
             emit(Resource.error(data = null, message = E.message ?: "Error Occured!"))
         }
@@ -39,10 +40,6 @@ class NewsRepository(
         } catch (E: Exception) {
             emit(Resource.error(data = null, message = E.message ?: "Error Occured!"))
         }
-    }
-
-    fun insertAll(newsArticles: List<NewsArticles>) {
-        newsDao.insertAll(newsArticles)
     }
 
     fun deleteAll() {
