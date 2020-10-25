@@ -1,4 +1,4 @@
-package com.alis.news.adapters
+ package com.alis.news.adapters
 
 import android.view.LayoutInflater
 import android.view.View
